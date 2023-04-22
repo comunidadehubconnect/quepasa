@@ -1,0 +1,412 @@
+{
+  "name": "ChatwootToQuepasaGreetings",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "7c0a44af-ad31-4bda-8a3f-75ca1066ccb5",
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "baseUrl": "={{$json.qphost}}",
+        "token": "={{$json.qptoken}}",
+        "text": "={{$json.content}}",
+        "chatId": "={{$json.chatid}}"
+      },
+      "id": "0b4bfe29-8392-4d28-ba08-54871d324190",
+      "name": "Quepasa Send Welcome",
+      "type": "n8n-nodes-quepasa.quepasa",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "noData",
+        "options": {}
+      },
+      "id": "f6a2cd1a-ce66-4038-8ef9-2574230d7c4f",
+      "name": "Normal Exit (GNE)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.chatid}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "name": "Has Chat Id ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        120,
+        460
+      ],
+      "alwaysOutputData": false,
+      "id": "bd875954-dd02-46c0-b75c-5f5fdda2f492"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "chatid",
+              "value": "={{$json.chat.id}}"
+            },
+            {
+              "name": "qphost",
+              "value": "={{$json.extra.qphost}}"
+            },
+            {
+              "name": "qptoken",
+              "value": "={{$json.extra.qptoken}}"
+            },
+            {
+              "name": "cwhost",
+              "value": "={{$json.extra.cwhost}}"
+            },
+            {
+              "name": "account",
+              "value": "={{$json.extra.account}}"
+            },
+            {
+              "name": "inbox",
+              "value": "={{$json.extra.inbox}}"
+            },
+            {
+              "name": "utoken",
+              "value": "={{$json.extra.utoken}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "da729c43-1f82-4d8e-badd-dcb6c7bbc2eb",
+      "name": "Set Payload",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "content",
+              "value": "={{$json.greeting_message}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Greeting Message Content",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        320
+      ],
+      "id": "c043bba8-862a-4936-90d9-de532bc43d01"
+    },
+    {
+      "parameters": {
+        "url": "={{$json.cwhost}}/api/v1/accounts/{{$json.account}}/inboxes/{{$json.inbox}}",
+        "allowUnauthorizedCerts": true,
+        "options": {},
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "api_access_token",
+              "value": "={{$json.utoken}}"
+            }
+          ]
+        }
+      },
+      "name": "Get Inbox Information",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        480,
+        440
+      ],
+      "id": "c4e2a3c3-d155-460e-9962-c82fa4637cbd",
+      "notes": "Important to use \"source_id\" to respond messages"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.greeting_enabled}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "name": "Is Greeting Enabled ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        340
+      ],
+      "alwaysOutputData": false,
+      "id": "a25df06e-01ee-4e91-a6c6-60dba7650fe1"
+    },
+    {
+      "parameters": {
+        "mode": "multiplex"
+      },
+      "id": "c8da3b95-8acc-4e3e-972a-1cf81d0f27f6",
+      "name": "Merge Extra + Greeting Content",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 1,
+      "position": [
+        1660,
+        220
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "85374b0c-4754-42ee-8825-49889d059f6a",
+      "name": "NoOp",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "323e6b13-1cb1-4bed-9d7c-f236d54da5d5",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        760,
+        340
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "934f8518-c4e6-4885-b403-1af426359e18",
+      "name": "Waiting for inbox info",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        480,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "errorMessage": "no chat id"
+      },
+      "id": "cec84bd7-83bc-45f8-b187-2a27e34eeebb",
+      "name": "S&E - No Chat Id",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        480,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field\n// called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  let value = item.json.content;\n  if (typeof value === 'string') {\n    value = value.replace(/\\*\\*/g,'*');\n    value = value.replace(/\\\\\\s/g,'\\r');\n  }\n  item.json.content = value;\n}\n\nreturn $input.all();"
+      },
+      "id": "4dc9d541-db98-49be-bef3-d3b2466576a5",
+      "name": "Text Enchanted adjusts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        1880,
+        220
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Has Chat Id ?": {
+      "main": [
+        [
+          {
+            "node": "Get Inbox Information",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Waiting for inbox info",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "S&E - No Chat Id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Payload": {
+      "main": [
+        [
+          {
+            "node": "Has Chat Id ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Set Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Greeting Message Content": {
+      "main": [
+        [
+          {
+            "node": "Merge Extra + Greeting Content",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Get Inbox Information": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Is Greeting Enabled ?": {
+      "main": [
+        [
+          {
+            "node": "Greeting Message Content",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "NoOp",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Normal Exit (GNE)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Extra + Greeting Content": {
+      "main": [
+        [
+          {
+            "node": "Text Enchanted adjusts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NoOp": {
+      "main": [
+        [
+          {
+            "node": "Merge Extra + Greeting Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Is Greeting Enabled ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Waiting for inbox info": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Enchanted adjusts": {
+      "main": [
+        [
+          {
+            "node": "Quepasa Send Welcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "668137f7-584a-44f3-810d-028a2fba3c9b",
+  "id": "4",
+  "meta": {
+    "instanceId": "2b4ab318d4f8eba20155e50db9998481bc305e3588e42ee69176091736c9d07e"
+  },
+  "tags": []
+}

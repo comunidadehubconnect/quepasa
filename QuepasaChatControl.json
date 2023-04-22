@@ -1,0 +1,405 @@
+{
+  "name": "QuepasaChatControl",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "e7a609cd-d480-43ea-8fbb-7f0299475e0e",
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        640,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json.payload}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "a785f941-3173-41c4-943c-13e9f33f7f1c",
+      "name": "If From Chat ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{$json.payload?.content?? \"\"}}",
+        "rules": {
+          "rules": [
+            {
+              "operation": "startsWith",
+              "value2": "/invite"
+            }
+          ]
+        },
+        "fallbackOutput": 3
+      },
+      "id": "86c4f61a-9290-4c49-b1b1-85956d3b2308",
+      "name": "Switch From Chat",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        600
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "1daa9184-1138-4f3a-b3d0-8d328864dbc9",
+      "name": "Discarding Invalid Content",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "response",
+              "value": "=Para convidar alguém, utilize o atalho a seguir: \n{{$json[\"url\"]}}\nCompartilhe com quem deseje que participe deste grupo."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bf3b523d-6837-463f-a471-8ee7f7eafeb9",
+      "name": "Set Invite Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        3040,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.success}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "34a9876e-68ef-4957-9178-b234be9d489d",
+      "name": "IF Success2",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        2740,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.chatid??\"\"}}",
+              "operation": "endsWith",
+              "value2": "@g.us"
+            }
+          ]
+        }
+      },
+      "id": "5e2d2052-5993-4df5-8c2a-18efd2f1dd85",
+      "name": "If Is From Group",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        2080,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.response}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "ec6b1736-57ab-481c-b9c5-5c5e87488fda",
+      "name": "If Reponse Not Empty ?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        3360,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "baseUrl": "={{$json.qphost}}",
+        "token": "={{$json.qptoken}}",
+        "text": "={{$json[\"response\"]}}",
+        "chatId": "={{$json.chatid}}"
+      },
+      "id": "7a86d104-aba4-4be1-9a30-aba3c972c7c8",
+      "name": "Quepasa",
+      "type": "n8n-nodes-quepasa.quepasa",
+      "typeVersion": 1,
+      "position": [
+        3620,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "chatid",
+              "value": "={{ $json.chatid ?? $json.payload?.chatid }}"
+            },
+            {
+              "name": "qphost",
+              "value": "={{$json.extra?.qphost??$json.query?.qphost}}"
+            },
+            {
+              "name": "qptoken",
+              "value": "={{$json.extra?.qptoken??$json.query?.qptoken}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "392384c3-7fb5-4bf5-bfdb-5f1360a5a43f",
+      "name": "Set Parameters From Control Chat",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        1900,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "baseUrl": "={{$json[\"qphost\"]}}",
+        "token": "={{$json[\"qptoken\"]}}",
+        "resource": "control",
+        "operation": "invite",
+        "chatId": "={{$json[\"chatid\"]}}"
+      },
+      "id": "c671bf38-e2fa-4aca-9bb9-5e954fa957e0",
+      "name": "Quepasa Get Invite Link",
+      "type": "n8n-nodes-quepasa.quepasa",
+      "typeVersion": 1,
+      "position": [
+        2320,
+        620
+      ],
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "c31eccc2-b279-49b5-8f43-6d3ebd7d014c",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        2540,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "response",
+              "value": "=! {{$json[\"status\"]}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6737af1e-a71b-40a3-86c3-b6d4fe27cb06",
+      "name": "Set Error Response From Quepasa",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        3040,
+        620
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If From Chat ?": {
+      "main": [
+        [
+          {
+            "node": "Switch From Chat",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Discarding Invalid Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch From Chat": {
+      "main": [
+        [
+          {
+            "node": "Set Parameters From Control Chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Invite Response": {
+      "main": [
+        [
+          {
+            "node": "If Reponse Not Empty ?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Success2": {
+      "main": [
+        [
+          {
+            "node": "Set Invite Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Error Response From Quepasa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Is From Group": {
+      "main": [
+        [
+          {
+            "node": "Quepasa Get Invite Link",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Reponse Not Empty ?1": {
+      "main": [
+        [
+          {
+            "node": "Quepasa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "If From Chat ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Parameters From Control Chat": {
+      "main": [
+        [
+          {
+            "node": "If Is From Group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quepasa Get Invite Link": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "IF Success2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Error Response From Quepasa": {
+      "main": [
+        [
+          {
+            "node": "If Reponse Not Empty ?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "4d61fcc5-66c0-47c4-9d92-cfb5d89ab7e0",
+  "id": "6",
+  "meta": {
+    "instanceId": "2b4ab318d4f8eba20155e50db9998481bc305e3588e42ee69176091736c9d07e"
+  },
+  "tags": []
+}

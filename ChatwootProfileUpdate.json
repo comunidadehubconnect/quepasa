@@ -1,0 +1,573 @@
+{
+  "name": "ChatwootProfileUpdate",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "={{$json.qphost}}/v3/bot/{{$json.qptoken}}/picinfo/{{$json.chatid}}",
+        "allowUnauthorizedCerts": true,
+        "options": {}
+      },
+      "name": "Quepasa Picture Info",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        200
+      ],
+      "id": "2f996ac8-f561-4746-8646-0bd259246caf",
+      "continueOnFail": true,
+      "notes": "Important to use \"source_id\" to respond messages"
+    },
+    {
+      "parameters": {
+        "mode": "multiplex"
+      },
+      "name": "Quepasa + Contact",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 1,
+      "position": [
+        1620,
+        60
+      ],
+      "id": "1f81ae10-8e3e-40d3-bb41-16f2bef45c2f"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Quepasa",
+              "value": "={{$json}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set Quepasa",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        180
+      ],
+      "id": "53e348aa-c324-4641-95d9-fe3709b6d432"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json[\"success\"]}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "b89384cc-fb29-45ac-81d5-dab7e5d3ad1d",
+      "name": "Success on get picture ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "requestMethod": "PUT",
+        "url": "={{$json.cwhost}}/api/v1/accounts/{{$json.account}}/contacts/{{$json.contactid}}",
+        "allowUnauthorizedCerts": true,
+        "options": {},
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "avatar_url",
+              "value": "={{ $json[\"Quepasa\"][\"info\"][\"url\"] }}"
+            },
+            {
+              "name": "custom_attributes.pictureid",
+              "value": "={{ $json[\"Quepasa\"][\"info\"][\"id\"] }}"
+            }
+          ]
+        },
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "api_access_token",
+              "value": "={{$json.utoken}}"
+            }
+          ]
+        }
+      },
+      "name": "Chatwoot Update Profile Avatar URL",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        1880,
+        60
+      ],
+      "id": "baf12419-d9e2-43c8-af01-18843488bf78",
+      "retryOnFail": true,
+      "notes": "Missing filter by:\nContact Id\nInbox Id\nStatus = open | pending"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.chatid}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "3b8852bb-25f2-466f-81a7-0f2c207e5e4d",
+      "name": "If Found ChatId",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -180,
+        -220
+      ]
+    },
+    {
+      "parameters": {
+        "errorMessage": "Chat Id not found !"
+      },
+      "id": "75bedc40-6604-4b72-bac9-9d84f6a93d1e",
+      "name": "Stop And Error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        20,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Starting with following parameters\n\n* chatid\n* qphost\n* qptoken\n\n* cwhost\n* utoken\n* account\n\n* contactid",
+        "height": 628.3922996878252,
+        "width": 527.0811654526535
+      },
+      "id": "050e90dd-3723-447a-a09e-e9bef5902960",
+      "name": "Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -840,
+        -600
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{$json.cwhost}}/api/v1/accounts/{{$json.account}}/contacts/{{$json.contactid}}",
+        "allowUnauthorizedCerts": true,
+        "options": {},
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "api_access_token",
+              "value": "={{$json.utoken}}"
+            }
+          ]
+        }
+      },
+      "name": "Get Contact Info",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        -400
+      ],
+      "id": "b3c26495-9d37-4433-81f5-7949f65b86cf",
+      "retryOnFail": true,
+      "notes": "Missing filter by:\nContact Id\nInbox Id\nStatus = open | pending"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.payload}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "93457c85-0859-4a20-b1c1-3ac39211f39c",
+      "name": "If Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1160,
+        -400
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "4ed912de-72b0-4c6f-ae83-2e1e83ab9d15",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        -520
+      ]
+    },
+    {
+      "parameters": {
+        "requestMethod": "PUT",
+        "url": "={{$json.cwhost}}/api/v1/accounts/{{$json.account}}/contacts/{{$json.contactid}}",
+        "allowUnauthorizedCerts": true,
+        "options": {},
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "identifier",
+              "value": "={{$json.chatid}}"
+            }
+          ]
+        },
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "api_access_token",
+              "value": "={{$json.utoken}}"
+            }
+          ]
+        }
+      },
+      "name": "Chatwoot Update Profile Email3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        2120,
+        -620
+      ],
+      "id": "6610a2c6-7546-45d2-809c-43c3fcf9075b",
+      "retryOnFail": false,
+      "continueOnFail": true
+    },
+    {
+      "parameters": {},
+      "id": "4fb5121d-930e-4e3b-b36e-eb096f952f13",
+      "name": "When Called By Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -620,
+        -220
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "bb579ca2-caa6-489c-8af6-1ae251ca3aed",
+      "name": "NoOp",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        780,
+        -540
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "882cee25-9482-4588-989d-3e935dc1ffb0",
+      "name": "NoOp1",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        780,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "errorMessage": "Chat Id not found !"
+      },
+      "id": "570fde39-8f7a-4748-9bac-c04a7c5f0ace",
+      "name": "Stop And Error1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "noData",
+        "options": {}
+      },
+      "id": "2a06a29b-e919-407f-872f-bb64456df520",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        2400,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.payload?.identifier}}",
+              "operation": "isEmpty"
+            }
+          ]
+        },
+        "combineOperation": "any"
+      },
+      "id": "b06f5859-4083-422a-8223-664709ec7bea",
+      "name": "If Empty Identifier",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1640,
+        -600
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.payload?.identifier}}",
+              "operation": "notEqual",
+              "value2": "={{$json.chatid}}"
+            }
+          ]
+        }
+      },
+      "id": "c3b0480a-30fc-4668-960a-29e1d12a6ff5",
+      "name": "If Different Identifier ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1880,
+        -500
+      ],
+      "notesInFlow": true,
+      "notes": "Used to sincronize old versions with Quepasa Id"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Quepasa Picture Info": {
+      "main": [
+        [
+          {
+            "node": "Success on get picture ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quepasa + Contact": {
+      "main": [
+        [
+          {
+            "node": "Chatwoot Update Profile Avatar URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Quepasa": {
+      "main": [
+        [
+          {
+            "node": "Quepasa + Contact",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Success on get picture ?": {
+      "main": [
+        [
+          {
+            "node": "Set Quepasa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Found ChatId": {
+      "main": [
+        [
+          {
+            "node": "NoOp",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "NoOp1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop And Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Contact Info": {
+      "main": [
+        [
+          {
+            "node": "If Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Success": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "Stop And Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "If Empty Identifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Called By Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "If Found ChatId",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NoOp": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Contact Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NoOp1": {
+      "main": [
+        [
+          {
+            "node": "Quepasa + Contact",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Quepasa Picture Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chatwoot Update Profile Email3": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chatwoot Update Profile Avatar URL": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Empty Identifier": {
+      "main": [
+        [
+          {
+            "node": "Chatwoot Update Profile Email3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If Different Identifier ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Different Identifier ?": {
+      "main": [
+        [
+          {
+            "node": "Chatwoot Update Profile Email3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "4da2b06e-c81d-46e3-bfb6-dc283dfd0c97",
+  "id": "5",
+  "meta": {
+    "instanceId": "2b4ab318d4f8eba20155e50db9998481bc305e3588e42ee69176091736c9d07e"
+  },
+  "tags": []
+}

@@ -1,0 +1,1255 @@
+{
+  "name": "ChatwootToQuepasa",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "from-chatwoot",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "From ChatWoot",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -2220,
+        1920
+      ],
+      "webhookId": "ae8993fc-1ab0-4de5-90ce-0eb59a2b5c7d",
+      "id": "2621dbcc-415e-4a0d-af8b-fe0a9639ecd9"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "payload.content",
+              "value": "=*{{$json.payload.sender}}*: {{$json.payload.content}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Update Content With Sender Name",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        1420,
+        1400
+      ],
+      "id": "c381b2a5-3a63-43dc-8cdc-ef4d87678e6f"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "only for messages",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "name": "Not Message Created Event !",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        -960,
+        3960
+      ],
+      "id": "c2b12e6d-dc73-406e-a206-0834b9b2464d"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "only for outbound messages",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "name": "Is Incoming !",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        1800
+      ],
+      "id": "fc875c24-165b-44cb-979a-d4fc5609b254"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "do not forwarding private messages",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "name": "Is Private !",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        1800
+      ],
+      "id": "d15d7eb7-dda6-459a-b971-faeba87b16c8"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "do not forwarding bot messages",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "name": "From Customer !",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        1800
+      ],
+      "id": "bc68f1bf-ac79-47c2-b4cd-a3b090a68693"
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{$json[\"body\"][\"event\"]}}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "message_created"
+            },
+            {
+              "value2": "conversation_status_changed",
+              "output": 1
+            },
+            {
+              "value2": "conversation_created",
+              "output": 2
+            }
+          ]
+        },
+        "fallbackOutput": 3
+      },
+      "name": "Switch1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        -1980,
+        1920
+      ],
+      "id": "d66c4112-d8ab-4f3c-96a5-99c85e27bc9f"
+    },
+    {
+      "parameters": {},
+      "name": "Message Created Event",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        1560
+      ],
+      "id": "a908b179-617e-4402-999f-7fc169e617d3"
+    },
+    {
+      "parameters": {},
+      "name": "Conversation Status Changed  Event",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        2320
+      ],
+      "id": "d47dd2ae-5b54-42c0-9052-2e6910fa7612"
+    },
+    {
+      "parameters": {
+        "functionCode": "function hex2a(hexx) {\n    var hex = hexx.toString(); //force conversion\n    var str = '';\n    for (var i = 0; i < hex.length; i += 2)\n        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));\n    return str;\n}\n\nlet response = [];\nfor(let index in items) \n{    \n  let body = items[index].json[\"body\"];\n  if(body) {     \n    let chatId = body.conversation.meta?.sender?.identifier;    \n    if(!chatId)\n    {\n      chatId = body.conversation.meta?.sender?.custom_attributes?.quepasa;\n      if(!chatId){\n        chatId = body.conversation.meta?.sender?.phone_number;\n        if(!chatId){\n          let chatIdEncrypted = body.conversation.contact_inbox.source_id;\n          chatId = hex2a(chatIdEncrypted)\n        }\n      }\n    }\n\n    // attachments\n    for(let message of body.conversation.messages) \n    {  \n      if(message.content){\n        const item = {        \n          token: items[index].json[\"query\"][\"token\"],\n          chatid: chatId,\n          sourceid: body.conversation.contact_inbox.source_id,\n          conversationid: body.conversation.id,\n          content: message.content,\n          sender: message.sender?.available_name || message.sender?.name || 'Auto Atendimento'\n        };\n        const msgItem = { \n          payload: item,\n          query: items[index].json[\"query\"]\n        };\n        response.push(msgItem);\n      }\n\n      if(message.attachments){\n        for(let attach of message.attachments) \n        {\n          const item = {\n            token: items[index].json[\"query\"][\"token\"],\n            chatid: chatId,            \n            attachment: attach.data_url\n          };\n          const msgItem = { \n            payload: item,\n            query: items[index].json[\"query\"]\n          };\n          response.push(msgItem);\n        }\n      }\n    }\n  }\n}\nreturn response;"
+      },
+      "name": "Payload",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        560,
+        1520
+      ],
+      "id": "845f3d0c-bb67-4ef7-9475-acb7503e5f84"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.payload.content}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "aef1f6e0-7535-4e26-ae98-49a97759a67b",
+      "name": "Text Message ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        800,
+        1520
+      ]
+    },
+    {
+      "parameters": {},
+      "name": "Conversation Created Event",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        2980
+      ],
+      "id": "bb534d8c-6cff-4f6b-aaff-908a7925960f"
+    },
+    {
+      "parameters": {
+        "baseUrl": "={{$json.query.qphost}}",
+        "token": "={{$json.query.qptoken}}",
+        "text": "={{$json.payload.content}}",
+        "chatId": "={{$json.payload.chatid}}",
+        "trackId": "chatwoot"
+      },
+      "id": "09072d92-3d69-45a1-a59f-c68f659409f9",
+      "name": "Quepasa Send Text",
+      "type": "n8n-nodes-quepasa.quepasa",
+      "typeVersion": 1,
+      "position": [
+        2500,
+        1620
+      ],
+      "retryOnFail": true,
+      "maxTries": 2
+    },
+    {
+      "parameters": {
+        "baseUrl": "={{$json.query.qphost}}",
+        "token": "={{$json.query.qptoken}}",
+        "method": "sendurl",
+        "text": "={{$json.payload.content}}",
+        "chatId": "={{$json.payload.chatid}}",
+        "url": "={{$json.payload.attachment}}",
+        "trackId": "chatwoot"
+      },
+      "id": "dbfd305d-8f04-47fd-aa77-91dd4502afd6",
+      "name": "Quepasa Send Attach",
+      "type": "n8n-nodes-quepasa.quepasa",
+      "typeVersion": 1,
+      "position": [
+        2500,
+        1860
+      ],
+      "retryOnFail": true,
+      "maxTries": 2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json[\"body\"][\"meta\"][\"sender\"][\"name\"].toLowerCase()}}",
+              "operation": "contains",
+              "value2": "quepasa control"
+            },
+            {
+              "value1": "={{$json[\"body\"][\"conversation\"][\"meta\"][\"sender\"][\"name\"].toLowerCase()}}",
+              "operation": "contains",
+              "value2": "quepasa control"
+            }
+          ]
+        },
+        "combineOperation": "any"
+      },
+      "id": "bf380529-9d8f-42b2-844f-a9bc5359d64e",
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        260,
+        1500
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "noData",
+        "options": {}
+      },
+      "id": "0193293e-6b3b-45d1-9d63-7a3ffbf91621",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1680,
+        1020
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.payload.attachment}}",
+              "operation": "isEmpty"
+            }
+          ]
+        }
+      },
+      "name": "Text Only ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        2220,
+        1740
+      ],
+      "id": "21e012a1-c80a-4195-8c62-23ef07117604"
+    },
+    {
+      "parameters": {
+        "respondWith": "noData",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "name": "Normal Exit (RAS)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        2780,
+        1740
+      ],
+      "id": "f86b0dc9-a770-41be-930b-454145e65d2c"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json[\"body\"][\"message_type\"]}}",
+              "value2": "outgoing"
+            }
+          ],
+          "number": [
+            {
+              "value1": "={{$json[\"body\"][\"message_type\"]}}",
+              "operation": "equal",
+              "value2": 1
+            }
+          ]
+        },
+        "combineOperation": "any"
+      },
+      "name": "Is Outgoing Message ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -540,
+        1560
+      ],
+      "id": "7bf6ef22-a79b-48b5-bc1e-37ed87306a7d"
+    },
+    {
+      "parameters": {
+        "respondWith": "noData",
+        "options": {}
+      },
+      "id": "bda84791-8171-4665-a36e-d2a7cd7613bc",
+      "name": "Normal Exit (GNE)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        40,
+        3000
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json[\"body\"][\"private\"]}}"
+            }
+          ]
+        }
+      },
+      "name": "Is Public ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        1540
+      ],
+      "id": "9370b719-97a2-4517-875f-fb80da2bab58"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json[\"body\"][\"sender\"][\"type\"]}}",
+              "operation": "notEqual",
+              "value2": "agent_bot"
+            },
+            {
+              "value1": "={{$json[\"body\"][\"sender\"][\"name\"]?.toLowerCase()}}",
+              "operation": "notContains",
+              "value2": "whatsapp outgoing"
+            }
+          ]
+        }
+      },
+      "name": "Is Not From Sincronize Bot?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        1520
+      ],
+      "id": "0fa1e309-8cb9-453e-b2a3-e469b2da9d8d"
+    },
+    {
+      "parameters": {
+        "workflowId": "5"
+      },
+      "id": "2d94da4a-2819-4caf-9034-86db984b5aec",
+      "name": "Throw To Profile Update Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        2460
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.payload.content}}",
+              "operation": "startsWith",
+              "value2": "/invite"
+            }
+          ]
+        }
+      },
+      "id": "45bc8f65-7437-48a3-a533-83dac6abbd85",
+      "name": "If Control Message",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        1380
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": "6"
+      },
+      "id": "1ca7c7f2-70cc-4235-a61b-14293a3624f1",
+      "name": "Quepasa Chat Control Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1420,
+        1020
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json[\"body\"][\"messages\"][0][\"sender_type\"]}}",
+              "value2": "User"
+            }
+          ]
+        }
+      },
+      "id": "3ce30833-98e8-42cc-8f08-eb532caad275",
+      "name": "Sent by agent ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -580,
+        2980
+      ],
+      "notesInFlow": true,
+      "notes": "Quando vem vazio é porque a conversa foi criada sem mensagem, no caso criado pelo fluxo. ou seja, criada pelo cliente."
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "={{$json.query.cwhost}} }}/api/v1/accounts/{{$json.query.account}}/conversations/{{$json.body.id}}/toggle_status",
+        "allowUnauthorizedCerts": true,
+        "options": {},
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "status",
+              "value": "open"
+            }
+          ]
+        },
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "api_access_token",
+              "value": "={{$json.query.utoken}}"
+            }
+          ]
+        }
+      },
+      "name": "Open Conversation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        -260,
+        2860
+      ],
+      "id": "2380fbf1-f39c-4501-b90f-b75c64cd1fbb",
+      "continueOnFail": true,
+      "notes": "Important to use \"source_id\" to respond messages"
+    },
+    {
+      "parameters": {
+        "workflowId": "1"
+      },
+      "id": "5cf1da55-5d05-405c-b604-c1301c0adcfc",
+      "name": "Throw To Quepasa Inbox Control Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        560,
+        1280
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "qphost",
+              "value": "={{$json.query?.qphost}}"
+            },
+            {
+              "name": "qptoken",
+              "value": "={{$json.query?.qptoken}}"
+            },
+            {
+              "name": "cwhost",
+              "value": "={{$json.query?.cwhost}}"
+            },
+            {
+              "name": "utoken",
+              "value": "={{$json.query?.utoken}}"
+            },
+            {
+              "name": "account",
+              "value": "={{$json.query?.account}}"
+            },
+            {
+              "name": "contactid",
+              "value": "={{$json.body?.meta?.sender?.id}}"
+            },
+            {
+              "name": "chatid",
+              "value": "={{$json.chatid}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d8dd1654-f57f-421d-ba24-023b4826f863",
+      "name": "Set Update Contact Payload",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -360,
+        2460
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "noData",
+        "options": {}
+      },
+      "id": "32490fdb-f8ad-4196-abe7-88d4e0e5ff19",
+      "name": "Normal Exit (CUP)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        100,
+        2460
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "function hex2a(hexx) {\n    var hex = hexx.toString(); //force conversion\n    var str = '';\n    for (var i = 0; i < hex.length; i += 2)\n        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));\n    return str;\n}\n\nfor(let index in items) \n{ \n    if(items[index].json?.chatid){\n        continue;\n    }\n\n    let body = items[index].json[\"body\"];\n    if(body) \n    {\n        // trying to get from external identifier\n        let chatid = body.meta?.sender?.identifier;\n        if(!chatid)\n        {\n            // trying to get from quepasa custom property\n            chatid = body.meta?.sender?.custom_attributes?.quepasa;            \n            if(!chatid)\n            {\n                // trying to get from e-mail\n                chatid = body.meta?.sender?.email;            \n                if(!chatid)\n                {\n                    // trying to unhex from source_id\n                    if(body.contact_inbox?.source_id && body.contact_inbox.source_id.includes(\"@\")){\n                        chatid = hex2a(body.contact_inbox.source_id)\n                    }\n                    \n                    if(!chatid)\n                    {                    \n                        // trying to get from phone number\n                        chatid = body.meta?.sender?.phone_number;\n                    }\n                }\n            }\n        }\n        items[index].json.chatid = chatid;\n    }\n}\n\nreturn items;"
+      },
+      "name": "Getting ChatId From Custom|Email|Source|Phone",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        2460
+      ],
+      "id": "398b4fd8-f792-4c2b-8d08-8a99a0069198"
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{$json[\"body\"][\"event\"]}}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "message_updated"
+            }
+          ]
+        },
+        "fallbackOutput": 3
+      },
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        -1520,
+        3680
+      ],
+      "id": "b4d370b0-73f9-4af7-82c4-35cb539857c6"
+    },
+    {
+      "parameters": {},
+      "id": "a1da0e17-0c3d-4e44-a022-39a5cf910674",
+      "name": "Message Update Event",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        3380
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.body?.content_attributes?.deleted??false}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "a88d71b3-f22a-4e3b-b117-54bd8929c182",
+      "name": "If Deleted ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -700,
+        3380
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "ba4c2182-5b42-402b-8c8f-25b5e9a12873",
+      "name": "NoOp",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -440,
+        3320
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.body.status }}",
+              "value2": "resolved"
+            }
+          ]
+        }
+      },
+      "id": "6d9656d0-cd15-4188-8201-6f0f07a1484f",
+      "name": "If Conversation Resolved",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        2180
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "payload.chatid",
+              "value": "={{ $json.body.meta.sender.identifier }}"
+            },
+            {
+              "name": "payload.content",
+              "value": "-----------------------------------------------------\nSeu atendimento foi marcado como *concluído* !\nQualquer mensagem ou reação após este anúncio, irá iniciar uma *nova* conversa.\n-----------------------------------------------------"
+            },
+            {
+              "name": "query.qphost",
+              "value": "={{ $json.query.qphost }}"
+            },
+            {
+              "name": "query.qptoken",
+              "value": "={{ $json.query.qptoken }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c751369e-1b19-446c-b449-1bac8d58af90",
+      "name": "Set Resolved Payload",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        2140
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "92c3d447-ab89-431f-b444-9967f98b5882",
+      "name": "No Operation, do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2220,
+        1520
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "ef93f7d6-f994-4a5a-8c27-b202e5f2fd41",
+      "name": "No Operation, do nothing1",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1720,
+        1540
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "d0f7770e-37a5-4d69-8d32-6e5e4215f635",
+      "name": "No Operation, do nothing2",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1720,
+        2140
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## POSTING THROW QUEPASA\n",
+        "height": 739.22713414902,
+        "width": 862.4094915205981
+      },
+      "id": "a413c0f2-09fc-4ac7-ac08-f9e374e68046",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2140,
+        1380.4240879460162
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## POST RESOLVED MESSAGE\n* to disable, remove that link",
+        "height": 309.9487142819944,
+        "width": 961.5179310745352
+      },
+      "id": "5f1ef773-88df-430b-8048-746847da2ab9",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -700,
+        2060
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.body.meta?.sender?.identifier ?? \"\" }}",
+              "operation": "notEqual",
+              "value2": "control@quepasa.io"
+            }
+          ]
+        }
+      },
+      "id": "392dc014-2abd-450a-96e4-7c9781276d31",
+      "name": "If Not Control",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        2160
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "From ChatWoot": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Content With Sender Name": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Message Created Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Conversation Status Changed  Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Conversation Created Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Created Event": {
+      "main": [
+        [
+          {
+            "node": "Is Outgoing Message ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Payload": {
+      "main": [
+        [
+          {
+            "node": "Text Message ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Message ?": {
+      "main": [
+        [
+          {
+            "node": "If Control Message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversation Created Event": {
+      "main": [
+        [
+          {
+            "node": "Sent by agent ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quepasa Send Text": {
+      "main": [
+        [
+          {
+            "node": "Normal Exit (RAS)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quepasa Send Attach": {
+      "main": [
+        [
+          {
+            "node": "Normal Exit (RAS)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "Throw To Quepasa Inbox Control Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Only ?": {
+      "main": [
+        [
+          {
+            "node": "Quepasa Send Text",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Quepasa Send Attach",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Outgoing Message ?": {
+      "main": [
+        [
+          {
+            "node": "Is Public ?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Incoming !",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Public ?": {
+      "main": [
+        [
+          {
+            "node": "Is Not From Sincronize Bot?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Private !",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Not From Sincronize Bot?": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "From Customer !",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Control Message": {
+      "main": [
+        [
+          {
+            "node": "Quepasa Chat Control Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Content With Sender Name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quepasa Chat Control Workflow": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sent by agent ?": {
+      "main": [
+        [
+          {
+            "node": "Open Conversation",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Normal Exit (GNE)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Open Conversation": {
+      "main": [
+        [
+          {
+            "node": "Normal Exit (GNE)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Update Contact Payload": {
+      "main": [
+        [
+          {
+            "node": "Throw To Profile Update Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversation Status Changed  Event": {
+      "main": [
+        [
+          {
+            "node": "Getting ChatId From Custom|Email|Source|Phone",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If Conversation Resolved",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Throw To Profile Update Workflow": {
+      "main": [
+        [
+          {
+            "node": "Normal Exit (CUP)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Getting ChatId From Custom|Email|Source|Phone": {
+      "main": [
+        [
+          {
+            "node": "Set Update Contact Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Message Update Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [],
+        [
+          {
+            "node": "Not Message Created Event !",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Update Event": {
+      "main": [
+        [
+          {
+            "node": "If Deleted ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Deleted ?": {
+      "main": [
+        [
+          {
+            "node": "NoOp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Conversation Resolved": {
+      "main": [
+        [
+          {
+            "node": "If Not Control",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Resolved Payload": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No Operation, do nothing": {
+      "main": [
+        [
+          {
+            "node": "Quepasa Send Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No Operation, do nothing1": {
+      "main": [
+        [
+          {
+            "node": "Text Only ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No Operation, do nothing2": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Not Control": {
+      "main": [
+        [
+          {
+            "node": "Set Resolved Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "versionId": "05b2da31-fda4-4223-9526-51575eeeb5dd",
+  "id": "2",
+  "meta": {
+    "instanceId": "2b4ab318d4f8eba20155e50db9998481bc305e3588e42ee69176091736c9d07e"
+  },
+  "tags": [
+    {
+      "createdAt": "2022-10-13T04:02:06.783Z",
+      "updatedAt": "2022-10-13T04:02:06.783Z",
+      "id": "1",
+      "name": "SUFFICIT"
+    }
+  ]
+}

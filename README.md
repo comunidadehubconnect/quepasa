@@ -35,11 +35,11 @@
 
 ```
 git clone https://github.com/nocodeleaks/quepasa /opt/quepasa-source
-</p>
 bash /opt/quepasa-source/helpers/install.sh
-</p>
-sudo nano /etc/nginx/sites-available/quepasa
 ```
+
+sudo nano /etc/nginx/sites-available/quepasa
+
 
 </p>
 

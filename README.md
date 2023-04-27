@@ -135,7 +135,7 @@ systemctl daemon-reload
 
 ----------------------------------------------------------------------------
 
-git clone https://github.com/aireset/quepasa
+git clone https://github.com/nocodeleaks/quepasa
 </p>
 cd quepasa/docker
 </p>

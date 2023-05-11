@@ -40,13 +40,16 @@ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 </p>
 sudo apt-get install -y nodejs
 </p>
-sudo apt install nginx
-</p>
+
 
 ```
 git clone https://github.com/nocodeleaks/quepasa /opt/quepasa-source
 bash /opt/quepasa-source/helpers/install.sh
 ```
+
+</p>
+sudo apt install nginx
+</p>
 
 </p>
 sudo nano /etc/nginx/sites-available/quepasa

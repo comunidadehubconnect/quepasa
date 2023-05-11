@@ -34,13 +34,14 @@
 **Manual de Instalação API Quepasa**
 
 </p></p>
-sudo apt update && sudo apt upgrade
+sudo apt update && sudo apt upgrade y
 </p>
 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 </p>
 sudo apt-get install -y nodejs
 </p>
-
+sudo apt-get install git-all
+</p>
 
 ```
 git clone https://github.com/nocodeleaks/quepasa /opt/quepasa-source

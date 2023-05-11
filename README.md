@@ -33,15 +33,25 @@
 
 **Manual de Instalação API Quepasa**
 
+</p></p>
+sudo apt update && sudo apt upgrade
+</p>
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+</p>
+sudo apt-get install -y nodejs
+</p>
+sudo apt install nginx
+</p>
+
 ```
 git clone https://github.com/nocodeleaks/quepasa /opt/quepasa-source
 bash /opt/quepasa-source/helpers/install.sh
 ```
 
-sudo nano /etc/nginx/sites-available/quepasa
-
-
 </p>
+sudo nano /etc/nginx/sites-available/quepasa
+</p>
+
 
 ```
 server {
@@ -75,6 +85,19 @@ server {
 
 sudo ln -s /etc/nginx/sites-available/quepasa /etc/nginx/sites-enabled
 </p>
+sudo apt-get install snapd
+</p>
+sudo snap install notes
+</p>
+sudo snap install --classic certbot
+</p>
+sudo certbot --nginx
+</p>
+sudo service nginx restart
+</p>
+</p>
+
+
 sudo certbot --nginx
 </p>
 sudo service nginx restart
@@ -99,6 +122,15 @@ systemctl restart quepasa
 
 ----------------------------------------------------------------------------
 
+***Execute esse processo abaixo parra deixar mais rapida sua API**
+
+nano /etc/hosts
+
+Adicione isso na primeira linha 
+127.0.0.1       localhost app.dominio.com.br conector.dominio.com.br api.dominio.com.br
+
+----------------------------------------------------------------------------
+
 **Instalação Finalizadas**
 
 </p>
@@ -107,10 +139,13 @@ quepa.dominio.com.br/setup
 Faça os cadastros em todos eles
 </p>
 
+
+----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 
 **Pronto tudo Funcionando**
 
+----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 
 **Comando atualizar API Quepasa**
@@ -129,116 +164,20 @@ systemctl daemon-reload
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 
-**Versão Docker**
+**Comandos basicos API Quepasa**
 
-**Manual de Instalação ChatWoot via Docker**
-
-----------------------------------------------------------------------------
-
-git clone https://github.com/nocodeleaks/quepasa
+mv /opt/quepasa/views/setup.tmpl /opt/quepasa/views/setup.tmpl.old
 </p>
-cd quepasa/docker
+/info 
 </p>
-nano .env
-</p></p></p>
-WEBSOCKETSSL=false # http or Https
-</p></p>
-para
-</p></p>
-WEBSOCKETSSL=true # http or Https
+/agentbot
 </p>
-
-----------------------------------------------------------------------------
-
-**Ativando SSL Quepasa**
-
+/webhook update
 </p>
-sudo apt-get install nginx
+/webhook remove
 </p>
-cd /etc/nginx/sites-enabled
+/webhook clear
 </p>
-sudo nano /etc/nginx/sites-available/quepasa
-
-</p>
-
-```
-server {
-
-  server_name quepasa.dominio.com.br;
-
-  location / {
-
-    proxy_pass http://127.0.0.1:31000;
-
-    proxy_http_version 1.1;
-
-    proxy_set_header Upgrade $http_upgrade;
-
-    proxy_set_header Connection 'upgrade';
-
-    proxy_set_header Host $host;
-
-    proxy_set_header X-Real-IP $remote_addr;
-
-    proxy_set_header X-Forwarded-Proto $scheme;
-
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    
-    proxy_cache_bypass $http_upgrade;
-
-  }
-
-  }
-```
-
-sudo ln -s /etc/nginx/sites-available/quepasa /etc/nginx/sites-enabled
-</p>
-</p>
-sudo apt-get install snapd
-</p>
-sudo snap install --classic certbot
-</p>
-sudo certbot --nginx
-</p>
-Coloque Email:
-</p>
-Y
-</p>
-Y
-</p>
-sudo certbot --nginx
-</p>
-sudo service nginx restart
-</p>
-
-----------------------------------------------------------------------------
-
-*Comandos para Iniciar*
-
-```
-docker-compose build
-docker-compose up -d
-```
-ou 
-
-```
-docker-compose up -d --build
-```
-</p>
-
-----------------------------------------------------------------------------
-
-**Instalação Finalizadas**
-
-</p>
-quepa.dominio.com.br/setup
-</p>
-Faça os cadastros em todos eles
-</p>
-
-----------------------------------------------------------------------------
-
-**Pronto tudo Funcionando**
 
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------

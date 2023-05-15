@@ -582,7 +582,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        -1080,
+        -1040,
         1540
       ]
     },
@@ -684,36 +684,6 @@
       ]
     },
     {
-      "parameters": {
-        "keepOnlySet": true,
-        "values": {
-          "string": [
-            {
-              "name": "payload.chatid",
-              "value": "={{ $json.body.meta.sender.identifier }}"
-            },
-            {
-              "name": "query.qphost",
-              "value": "={{ $json.query.qphost }}"
-            },
-            {
-              "name": "query.qptoken",
-              "value": "={{ $json.query.qptoken }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "5669407b-fc47-4013-96c3-78676d2a0d6f",
-      "name": "Set Resolved Payload",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 1,
-      "position": [
-        -1220,
-        1220
-      ]
-    },
-    {
       "parameters": {},
       "id": "1fcfce96-de05-4450-8e28-3c07898f5491",
       "name": "No Operation, do nothing",
@@ -765,7 +735,7 @@
       "parameters": {
         "content": "## POST RESOLVED MESSAGE\n* to disable, remove that link",
         "height": 309.9487142819944,
-        "width": 961.5179310745352
+        "width": 603.595796909644
       },
       "id": "735f412b-8676-4dc1-a35f-e7b33c6cb1ae",
       "name": "Sticky Note1",
@@ -795,6 +765,158 @@
       "position": [
         -1500,
         1240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=SELECT uuid FROM conversations WHERE id = {{ $node['From ChatWoot'].json.body.messages[0].conversation_id }}; ",
+        "options": {}
+      },
+      "id": "48aac771-97d4-4a7b-96bc-78b02f3668df",
+      "name": "ConsultaIDBanco",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [
+        0,
+        1680
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "Postgres SocialAtendimento"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "payload.chatid",
+              "value": "={{ $json.body.meta.sender.identifier }}"
+            },
+            {
+              "name": "query.qphost",
+              "value": "={{ $json.query.qphost }}"
+            },
+            {
+              "name": "query.qptoken",
+              "value": "={{ $json.query.qptoken }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "79446948-9808-4e43-8bd9-5111f9bbf33f",
+      "name": "Set Resolved Payload",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        1220
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "payload.chatid",
+              "value": "={{ $json.body.meta.sender.identifier }}"
+            },
+            {
+              "name": "query.qphost",
+              "value": "={{ $json.query.qphost }}"
+            },
+            {
+              "name": "query.qptoken",
+              "value": "={{ $json.query.qptoken }}"
+            },
+            {
+              "name": "payload.content",
+              "value": "=*{{ $node[\"From ChatWoot\"].json[\"body\"][\"meta\"][\"sender\"][\"name\"] }}* seu atendimento de Ticket de nº *{{ $node[\"From ChatWoot\"].json[\"body\"][\"messages\"][0][\"conversation_id\"] }}* foi fechado tá! Caso tenha alguma dúvida só enviar uma nova mensagem!\n\nAproveite e avalie nossa conversa. Sua opinião é muito importante para nós e nos ajudará a identificar áreas de melhorias e continuar oferecendo um serviço de excelência.😎\n\nAvalie meu atendimento👇🏻\nhttps://app.socialatendimento.com.br/survey/responses/{{ $node[\"ConsultaIDBanco\"].json[\"uuid\"] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f3913679-8d57-42b9-877c-c62dc7f6ace0",
+      "name": "Set Resolved Payload1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        380,
+        1560
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=SELECT csat_survey_enabled as enabled FROM inboxes WHERE id = {{ $json.query.inbox }}; ",
+        "options": {}
+      },
+      "id": "43317676-a820-4fba-b5b5-a43f958f747b",
+      "name": "ConsultaIDBanco1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [
+        -420,
+        1680
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "Postgres SocialAtendimento"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.enabled }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "932df599-413a-4b88-8204-9d869a491839",
+      "name": "IF1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        1700
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "ff653ecc-bf12-4b9a-a1d4-c77dca9e73f7",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        220,
+        1560
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "2cb555b4-e5d2-4155-8103-71592faf249c",
+      "name": "No Operation, do nothing3",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        1540
       ]
     }
   ],
@@ -1166,17 +1288,6 @@
         ]
       ]
     },
-    "Set Resolved Payload": {
-      "main": [
-        [
-          {
-            "node": "No Operation, do nothing2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "No Operation, do nothing": {
       "main": [
         [
@@ -1214,11 +1325,12 @@
       "main": [
         [
           {
-            "node": "Set Resolved Payload",
+            "node": "No Operation, do nothing3",
             "type": "main",
             "index": 0
           }
-        ]
+        ],
+        []
       ]
     },
     "Open Conversation": {
@@ -1231,11 +1343,98 @@
           }
         ]
       ]
+    },
+    "Set Resolved Payload": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normal Exit (CUP)": {
+      "main": [
+        []
+      ]
+    },
+    "ConsultaIDBanco": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "ConsultaIDBanco1": {
+      "main": [
+        [
+          {
+            "node": "IF1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Resolved Payload1": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF1": {
+      "main": [
+        [
+          {
+            "node": "ConsultaIDBanco",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No Operation, do nothing3": {
+      "main": [
+        [
+          {
+            "node": "ConsultaIDBanco1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Set Resolved Payload1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {},
-  "versionId": "c275dbfb-c040-4cac-a11e-45e9852e90e0",
+  "versionId": "d7ae4f46-a4a6-4563-9e43-cfc78ce81dd4",
   "id": "3",
   "meta": {
     "instanceId": "f02f26887e67df04425977547fa1b8580520c931a164aac95b06be62082bb6f9"

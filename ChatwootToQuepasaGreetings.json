@@ -3,29 +3,29 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "7c0a44af-ad31-4bda-8a3f-75ca1066ccb5",
+      "id": "573bc9d1-dbaa-4d69-9c85-3c114c996c74",
       "name": "Start",
       "type": "n8n-nodes-base.start",
       "typeVersion": 1,
       "position": [
-        -220,
-        460
+        -14340,
+        -340
       ]
     },
     {
       "parameters": {
         "baseUrl": "={{$json.qphost}}",
         "token": "={{$json.qptoken}}",
-        "text": "={{$json.content}}",
+        "text": "={{$json.inboxData.sendOutofOfficeMessage ? $json.inboxData.out_of_office_message : $json.inboxData.greeting_message}}",
         "chatId": "={{$json.chatid}}"
       },
-      "id": "0b4bfe29-8392-4d28-ba08-54871d324190",
+      "id": "42cb0091-7298-4204-bba5-e898a0893934",
       "name": "Quepasa Send Welcome",
       "type": "n8n-nodes-quepasa.quepasa",
       "typeVersion": 1,
       "position": [
-        2100,
-        220
+        -11920,
+        -440
       ]
     },
     {
@@ -33,13 +33,13 @@
         "respondWith": "noData",
         "options": {}
       },
-      "id": "f6a2cd1a-ce66-4038-8ef9-2574230d7c4f",
+      "id": "05bfa63e-b128-49a1-8a53-2d8f70aa36cc",
       "name": "Normal Exit (GNE)",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        1400,
-        540
+        -12320,
+        -40
       ]
     },
     {
@@ -57,11 +57,11 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        120,
-        460
+        -14000,
+        -340
       ],
       "alwaysOutputData": false,
-      "id": "bd875954-dd02-46c0-b75c-5f5fdda2f492"
+      "id": "65d28c2d-3c11-42a8-8a98-af466e393c4f"
     },
     {
       "parameters": {
@@ -100,36 +100,14 @@
         },
         "options": {}
       },
-      "id": "da729c43-1f82-4d8e-badd-dcb6c7bbc2eb",
+      "id": "c998234f-2e03-4f70-a4cf-10ccaaea0da7",
       "name": "Set Payload",
       "type": "n8n-nodes-base.set",
       "typeVersion": 1,
       "position": [
-        -60,
-        460
+        -14180,
+        -340
       ]
-    },
-    {
-      "parameters": {
-        "keepOnlySet": true,
-        "values": {
-          "string": [
-            {
-              "name": "content",
-              "value": "={{$json.greeting_message}}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "name": "Greeting Message Content",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 1,
-      "position": [
-        1400,
-        320
-      ],
-      "id": "c043bba8-862a-4936-90d9-de532bc43d01"
     },
     {
       "parameters": {
@@ -149,56 +127,11 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 2,
       "position": [
-        480,
-        440
+        -13640,
+        -360
       ],
-      "id": "c4e2a3c3-d155-460e-9962-c82fa4637cbd",
+      "id": "9ce66fce-2d0d-41ee-ba76-b62abf90a713",
       "notes": "Important to use \"source_id\" to respond messages"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "boolean": [
-            {
-              "value1": "={{$json.greeting_enabled}}",
-              "value2": true
-            }
-          ]
-        }
-      },
-      "name": "Is Greeting Enabled ?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 1,
-      "position": [
-        1080,
-        340
-      ],
-      "alwaysOutputData": false,
-      "id": "a25df06e-01ee-4e91-a6c6-60dba7650fe1"
-    },
-    {
-      "parameters": {
-        "mode": "multiplex"
-      },
-      "id": "c8da3b95-8acc-4e3e-972a-1cf81d0f27f6",
-      "name": "Merge Extra + Greeting Content",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 1,
-      "position": [
-        1660,
-        220
-      ]
-    },
-    {
-      "parameters": {},
-      "id": "85374b0c-4754-42ee-8825-49889d059f6a",
-      "name": "NoOp",
-      "type": "n8n-nodes-base.noOp",
-      "typeVersion": 1,
-      "position": [
-        1400,
-        140
-      ]
     },
     {
       "parameters": {
@@ -206,51 +139,162 @@
         "combinationMode": "multiplex",
         "options": {}
       },
-      "id": "323e6b13-1cb1-4bed-9d7c-f236d54da5d5",
+      "id": "5367750d-fb2d-4273-9375-872e836cca28",
       "name": "Merge",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2,
       "position": [
-        760,
-        340
+        -13360,
+        -460
       ]
     },
     {
       "parameters": {},
-      "id": "934f8518-c4e6-4885-b403-1af426359e18",
+      "id": "3490a435-da8e-4498-a738-86e331d94848",
       "name": "Waiting for inbox info",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        480,
-        260
+        -13640,
+        -540
       ]
     },
     {
       "parameters": {
         "errorMessage": "no chat id"
       },
-      "id": "cec84bd7-83bc-45f8-b187-2a27e34eeebb",
+      "id": "34f511c4-d562-4fea-ac7e-d26625dcdc94",
       "name": "S&E - No Chat Id",
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        480,
-        660
+        -13640,
+        -140
       ]
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field\n// called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  let value = item.json.content;\n  if (typeof value === 'string') {\n    value = value.replace(/\\*\\*/g,'*');\n    value = value.replace(/\\\\\\s/g,'\\r');\n  }\n  item.json.content = value;\n}\n\nreturn $input.all();"
+        "jsCode": "// Loop over input items and add a new field\n// called 'myNewField' to the JSON of each one\n\nfor (const item of $input.all()) {\n  let value = item.json.out_of_office_message;\n  if (typeof value === 'string') {\n    value = value.replace(/\\*\\*/g,'*');\n    value = value.replace(/\\\\\\s/g,'\\r');\n  }\n  item.json.out_of_office_message = value;\n\n  value = item.json.greeting_message;\n  if (typeof value === 'string') {\n    value = value.replace(/\\*\\*/g,'*');\n    value = value.replace(/\\\\\\s/g,'\\r');\n  }\n  item.json.greeting_message = value;\n}\n\nreturn $input.all();"
       },
-      "id": "4dc9d541-db98-49be-bef3-d3b2466576a5",
+      "id": "b09b9174-6890-435d-9b09-d7710cce61b0",
       "name": "Text Enchanted adjusts",
       "type": "n8n-nodes-base.code",
       "typeVersion": 1,
       "position": [
-        1880,
-        220
+        -13180,
+        -460
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.greeting_enabled}}",
+              "value2": "={{true}}"
+            }
+          ]
+        }
+      },
+      "name": "greeting enabled?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -12560,
+        -60
+      ],
+      "alwaysOutputData": false,
+      "id": "db50344e-0037-41e8-9f55-982821570bed"
+    },
+    {
+      "parameters": {
+        "mode": "multiplex"
+      },
+      "id": "8277c99b-66c4-473f-98bf-ad9c9459d313",
+      "name": "Merge4",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 1,
+      "position": [
+        -12080,
+        -440
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "inboxData",
+              "value": "={{$json}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "inboxData",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -12280,
+        -360
+      ],
+      "id": "657d3ed0-cc1a-49a3-9521-5a5264935405"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.working_hours_enabled}}",
+              "value2": "={{true}}"
+            }
+          ]
+        }
+      },
+      "name": "working hours enabled?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -12960,
+        -320
+      ],
+      "alwaysOutputData": false,
+      "id": "20c5434c-3c1a-49dc-806c-ca63c0c0c9ff"
+    },
+    {
+      "parameters": {
+        "functionCode": "const dados = items[0];\n\n//HugoSampaio: Ajuda a analisar problemas de timezone nao configurado\ndados.json.horaAtual = $now.toFormat('H');\n\nfor(let wo of dados.json[\"working_hours\"] ){\n  if ($today.weekday === wo.day_of_week){\n    if(wo.closed_all_day == true){\n      dados.json.sendOutofOfficeMessage = true;\n      break;\n    }\n\n    \n    // opcional: hora do almoco\n    if($now.toFormat('H') == \"12\"){\n      dados.json.sendOutofOfficeMessage = true;\n      break;\n    }\n\n\n    if(wo.open_all_day == false){\n\n      \n      if($now.toFormat('H') <= wo.open_hour  || $now.toFormat('H') >= wo.close_hour){\n        \n        // abertura\n        if($now.toFormat('H') == wo.open_hour){\n          if($now.toFormat('mm') < wo.open_minutes){\n            dados.json.sendOutofOfficeMessage = true;\n            break;\n          }else{\n            dados.json.sendOutofOfficeMessage = false;\n            break;\n          }\n        }\n        \n\n        // fechamento\n        if($now.toFormat('H') == wo.close_hour){\n          if($now.toFormat('mm') >= wo.close_minutes){\n            dados.json.sendOutofOfficeMessage = true;\n            break;\n          }else{\n            dados.json.sendOutofOfficeMessage = false;\n            break;\n          }\n        }\n\n        dados.json.sendOutofOfficeMessage = true;\n        break;\n       \n      }    \n    }\n  }\n}\n\nreturn dados.json;"
+      },
+      "name": "calculate working hours",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -12740,
+        -340
+      ],
+      "id": "56f2fd63-8bea-450d-9288-ba3b8a8754d7"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.json.sendOutofOfficeMessage}}",
+              "value2": "={{true}}"
+            }
+          ]
+        }
+      },
+      "name": "sendOutofOfficeMessage?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -12560,
+        -340
+      ],
+      "alwaysOutputData": false,
+      "id": "24b93790-6bae-4c75-a7b4-cd1a4c87670f"
     }
   ],
   "pinData": {},
@@ -300,17 +344,6 @@
         ]
       ]
     },
-    "Greeting Message Content": {
-      "main": [
-        [
-          {
-            "node": "Merge Extra + Greeting Content",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
     "Get Inbox Information": {
       "main": [
         [
@@ -322,56 +355,11 @@
         ]
       ]
     },
-    "Is Greeting Enabled ?": {
-      "main": [
-        [
-          {
-            "node": "Greeting Message Content",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "NoOp",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Normal Exit (GNE)",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge Extra + Greeting Content": {
-      "main": [
-        [
-          {
-            "node": "Text Enchanted adjusts",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "NoOp": {
-      "main": [
-        [
-          {
-            "node": "Merge Extra + Greeting Content",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Merge": {
       "main": [
         [
           {
-            "node": "Is Greeting Enabled ?",
+            "node": "Text Enchanted adjusts",
             "type": "main",
             "index": 0
           }
@@ -393,7 +381,99 @@
       "main": [
         [
           {
+            "node": "Merge4",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "working hours enabled?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "greeting enabled?": {
+      "main": [
+        [
+          {
+            "node": "inboxData",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Normal Exit (GNE)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge4": {
+      "main": [
+        [
+          {
             "node": "Quepasa Send Welcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "inboxData": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "working hours enabled?": {
+      "main": [
+        [
+          {
+            "node": "calculate working hours",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "greeting enabled?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "calculate working hours": {
+      "main": [
+        [
+          {
+            "node": "sendOutofOfficeMessage?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "sendOutofOfficeMessage?": {
+      "main": [
+        [
+          {
+            "node": "inboxData",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "greeting enabled?",
             "type": "main",
             "index": 0
           }
@@ -402,11 +482,15 @@
     }
   },
   "active": false,
-  "settings": {},
-  "versionId": "668137f7-584a-44f3-810d-028a2fba3c9b",
-  "id": "4",
+  "settings": {
+    "timezone": "America/Sao_Paulo",
+    "saveManualExecutions": false,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "9d3f6731-3111-44d7-8b15-8b1689c36a9d",
+  "id": "23",
   "meta": {
-    "instanceId": "2b4ab318d4f8eba20155e50db9998481bc305e3588e42ee69176091736c9d07e"
+    "instanceId": "71a168258e1d2fe006e272eeb7df857bf26cb200a6a4e831edb71e3060ef8b38"
   },
   "tags": []
 }

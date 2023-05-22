@@ -24,7 +24,7 @@
           "string": [
             {
               "name": "payload.content",
-              "value": "=*{{$json.payload.sender}}*: {{$json.payload.content}}"
+              "value": "={{ $json.payload.sender ? '*'+ $json.payload.sender.trim() +'*:' : '' }}\n\n{{$json.payload.content}}"
             }
           ]
         },
@@ -1329,8 +1329,7 @@
             "type": "main",
             "index": 0
           }
-        ],
-        []
+        ]
       ]
     },
     "Open Conversation": {
@@ -1353,11 +1352,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Normal Exit (CUP)": {
-      "main": [
-        []
       ]
     },
     "ConsultaIDBanco": {
@@ -1434,7 +1428,7 @@
   },
   "active": true,
   "settings": {},
-  "versionId": "d7ae4f46-a4a6-4563-9e43-cfc78ce81dd4",
+  "versionId": "5fee5003-3c47-4ae1-83c8-c55e8261f9f3",
   "id": "3",
   "meta": {
     "instanceId": "f02f26887e67df04425977547fa1b8580520c931a164aac95b06be62082bb6f9"

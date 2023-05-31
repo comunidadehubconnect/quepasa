@@ -59,7 +59,7 @@ contato@dominio.com.br
 </p>
 yes para todos
 </p>
-----------------------------------------------------------------------------
+<hr />
 
 **Alterando Idioma e ativando sua tela de cadastro**
 
@@ -81,7 +81,7 @@ Acesse: seudominio.com.br
 Faça seu cadastro
 </p>
 
-----------------------------------------------------------------------------
+<hr />
 
 **Habilitando configurações ocultas do Chatwoot**
 
@@ -97,7 +97,7 @@ update installation_configs set locked = false;
 \q
 </p>
 
-----------------------------------------------------------------------------
+<hr />
 
 **NOMES CHATWOOT TERMOS E POLITICA DE PRIVACIDADE**
 

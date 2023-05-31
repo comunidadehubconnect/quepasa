@@ -218,6 +218,8 @@ git clone https://github.com/EngajamentoFlow/quepasa
 </p>
 export N8N_EDITOR_BASE_URL=https://seudominio.com.br
 </p>
+export WEBHOOK_URL=https://seudominio.com.br
+</p>
 
 
 ```
@@ -251,7 +253,7 @@ C8Q_CW_PUBLIC_URL=seudominio
 ```
 
 </p>
-export WEBHOOK_URL=https://seudominio.com.br
+ln -s ./.n8n/.env .env
 </p>
 pm2 restart all --update-env
 </p>

@@ -29,6 +29,195 @@
 ```
 45959142000119	
 ```
+
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+
+
+**Manual de Instalação ChatWoot**
+
+sudo apt update && apt upgrade -y
+</p>
+wget https://get.chatwoot.app/linux/install.sh
+</p>
+chmod +x install.sh
+</p>
+./install.sh --install
+</p>
+Use as opções abaixo
+</p>
+yes
+</p>
+chatwoot.dominio.com.br
+</p>
+contato@dominio.com.br
+</p>
+yes para todos
+</p>
+----------------------------------------------------------------------------
+
+**Alterando Idioma e ativando sua tela de cadastro**
+
+</p>
+cd /home/chatwoot/chatwoot
+</p>
+nano .env
+</p>
+Altere a linha
+</p>
+DEFAULT_LOCALE=pt_BR
+</p>
+ENABLE_ACCOUNT_SIGNUP=true
+</p>
+sudo systemctl restart chatwoot.target
+</p>
+Acesse: seudominio.com.br
+</p>
+Faça seu cadastro
+</p>
+
+----------------------------------------------------------------------------
+
+**Habilitando configurações ocultas do Chatwoot**
+
+</p>
+No banco de dados PostgreSQL
+</p>
+sudo -u postgres psql
+</p>
+\c chatwoot_production
+</p>
+update installation_configs set locked = false;
+</p>
+\q
+</p>
+
+----------------------------------------------------------------------------
+
+**NOMES CHATWOOT TERMOS E POLITICA DE PRIVACIDADE**
+
+**Acesse super Admin**
+</p>
+https://seudominio.com.br/super_admin
+</p>
+Opção>installation_configs
+</p>
+LOGO
+</p>
+LOGO_THUMBNAIL
+</p>
+NOMES CHATWOOT:
+</p>
+Alterando nomes na plataforma
+</p>
+INSTALLATION_NAME
+</p>
+BRAND_NAME
+</p>
+TERMOS E POLITICA DE PRIVACIDADE
+</p>
+TERMS_URL
+</p>
+PRIVACY_URL
+</p>
+BRAND_URL
+</p>
+WIDGET_BRAND_URL
+</p>
+
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+
+**Manual de Instalação N8N**
+
+
+</p>
+sudo apt update && sudo apt upgrade y
+</p>
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+</p>
+sudo apt-get install -y nodejs
+</p>
+node -v
+</p>
+sudo npm install n8n -g
+</p>
+npm update -g n8n
+</p>
+sudo apt install npm
+</p>
+npm install pm2 -g
+</p>
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+</p>
+sudo apt install ./google-chrome-stable_current_amd64.deb
+</p>
+sudo nano /etc/nginx/sites-available/n8n
+</p>
+</p>
+</p>
+
+```
+server {
+
+  server_name n8n.dominio.com.br;
+
+  location / {
+
+    proxy_pass http://127.0.0.1:5678;
+
+    proxy_http_version 1.1;
+
+    proxy_set_header Upgrade $http_upgrade;
+
+    proxy_set_header Connection 'upgrade';
+
+    proxy_set_header Host $host;
+
+    proxy_set_header X-Real-IP $remote_addr;
+
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    proxy_cache_bypass $http_upgrade;
+
+    proxy_buffering off;
+
+    proxy_cache off;
+
+  }
+
+  }
+  ```
+
+</p>
+</p>
+</p>
+sudo ln -s /etc/nginx/sites-available/n8n /etc/nginx/sites-enabled
+</p>
+sudo certbot --nginx
+</p>
+sudo service nginx restart
+</p>
+pm2 start n8n --cron-restart="0 0 * * *" -- start
+</p>
+EXECUTE COMANDO ABAIXO PARA NÃO CAIR QUANDO REINICIAR A VPS
+</p>
+sudo pm2 startup ubuntu -u root && sudo pm2 startup ubuntu -u root --hp /root && sudo pm2 save
+</p>
+cd 
+</p>
+export N8N_EDITOR_BASE_URL=https://seudominio.com.br
+</p>
+</p>
+export WEBHOOK_URL=https://seudominio.com.br
+</p>
+pm2 restart all --update-env
+</p>
+
+
+----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 
 **Manual de Instalação API Quepasa**
@@ -89,11 +278,6 @@ server {
 
 sudo ln -s /etc/nginx/sites-available/quepasa /etc/nginx/sites-enabled
 </p>
-sudo apt-get install snapd
-</p>
-sudo snap install notes
-</p>
-sudo snap install --classic certbot
 </p>
 sudo certbot --nginx
 </p>
@@ -148,40 +332,6 @@ Faça os cadastros em todos eles
 ----------------------------------------------------------------------------
 
 **Pronto tudo Funcionando**
-
-----------------------------------------------------------------------------
-----------------------------------------------------------------------------
-
-**Comando atualizar API Quepasa**
-
-su - quepasa
-</p>
-cd /opt/quepasa
-</p>
-git pull
-</p>
-exit
-</p>
-systemctl daemon-reload
-</p>
-
-----------------------------------------------------------------------------
-----------------------------------------------------------------------------
-
-**Comandos basicos API Quepasa**
-
-mv /opt/quepasa/views/setup.tmpl /opt/quepasa/views/setup.tmpl.old
-</p>
-/info 
-</p>
-/agentbot
-</p>
-/webhook update
-</p>
-/webhook remove
-</p>
-/webhook clear
-</p>
 
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------

@@ -16,11 +16,13 @@
 	<span>Grupo WhatsaAPP Quepasa: </span>
 	<a href="https://chat.whatsapp.com/Cv5WfmujRzE09yQ6hagYim" target="_blank">Grupo</a>
 </p>
+<hr />
 <p align="left">
 	<img src="https://whatsapp.com/favicon.ico" alt="WhatsAPP-logo" width="32" />
 	<span>Grupo WhatsaAPP N8N: </span>
 	<a href="https://telinkei.com/gp-n8n-zap" target="_blank">Grupo</a>
 </p>
+<hr />
 
 **Gostou do Tutorial? Faça sua Contribuição**
 

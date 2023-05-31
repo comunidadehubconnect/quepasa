@@ -220,11 +220,12 @@ export N8N_EDITOR_BASE_URL=https://seudominio.com.br
 </p>
 export WEBHOOK_URL=https://seudominio.com.br
 </p>
-
+nano .env
+</p>
+Abaixo altere C8Q_QP_DEFAULT_USER=coloque email do Quepasa, C8Q_CW_PUBLIC_URL=dominiochatwoot
+</p>
 
 ```
-WEBHOOK_URL=https://seudominio
-
 # enable a single conversation per contact, for all life time, not just a ticket
 C8Q_SINGLETHREAD=false
 
@@ -249,7 +250,7 @@ C8Q_CHATWOOTTOQUEPASAGREETINGS=3
 C8Q_QP_DEFAULT_USER=coloque email do Quepasa
 
 # get initial from $N8N_HOST, otherwise from here
-C8Q_CW_PUBLIC_URL=seudominio
+C8Q_CW_PUBLIC_URL=dominiochatwoot
 ```
 
 </p>

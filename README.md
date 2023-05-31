@@ -347,7 +347,7 @@ https://github.com/nocodeleaks/quepasa/tree/main/extra/n8n%2Bchatwoot
 </p>
 Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
 </p>
-Adiocione seu email NO COLOCAR DADOS
+Adicione seu email NO COLOCAR DADOS
 
 <hr />
 

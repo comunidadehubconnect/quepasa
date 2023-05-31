@@ -4,16 +4,11 @@
 </p>
 <hr />
 <p align="left">
-	<img src="https://telegram.org/favicon.ico" alt="Telegram-logo" width="32" />
-	<span>Grupo e Canal Telegram: </span>
-	<a href="https://t.me/quepasa_api" target="_blank">Grupo</a>
-	<span> || </span>
-	<a href="https://t.me/quepasa_channel" target="_blank">Canal</a>
 </p>
 <hr />
 <p align="left">
 	<img src="https://whatsapp.com/favicon.ico" alt="WhatsAPP-logo" width="32" />
-	<span>Grupo WhatsaAPP: </span>
+	<span>Grupo WhatsaAPP Quepasa: </span>
 	<a href="https://chat.whatsapp.com/Cv5WfmujRzE09yQ6hagYim" target="_blank">Grupo</a>
 </p>
 ----------------------------------------------------------------------------

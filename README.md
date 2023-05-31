@@ -341,6 +341,10 @@ Faça os cadastros em todos eles
 **Configue os Worflows no N8N**
 
 </p>
+Baixe Worflows
+</p>
+https://github.com/nocodeleaks/quepasa/tree/main/extra/n8n%2Bchatwoot
+</p>
 Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
 </p>
 Adiocione seu email NO COLOCAR DADOS
@@ -354,7 +358,6 @@ Adiocione seu email NO COLOCAR DADOS
 </p>
 Adicione numeros NOS Trigger com numeros correspondente a Workflow
 </p>
-
 
 <hr />
 

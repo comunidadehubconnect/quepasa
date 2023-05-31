@@ -214,8 +214,42 @@ sudo pm2 startup ubuntu -u root && sudo pm2 startup ubuntu -u root --hp /root &&
 </p>
 cd 
 </p>
+git clone https://github.com/EngajamentoFlow/quepasa
+</p>
 export N8N_EDITOR_BASE_URL=https://seudominio.com.br
 </p>
+
+
+```
+WEBHOOK_URL=https://seudominio
+
+# enable a single conversation per contact, for all life time, not just a ticket
+C8Q_SINGLETHREAD=false
+
+# used by ChatwootToQuepasa
+C8Q_QUEPASAINBOXCONTROL=7
+
+# used by ChatwootToQuepasa | QuepasaToChatwoot
+C8Q_QUEPASACHATCONTROL=6
+
+# used by ChatwootToQuepasa
+C8Q_CHATWOOTPROFILEUPDATE=1
+
+# used by QuepasaToChatwoot
+C8Q_POSTTOCHATWOOT=4
+
+# used by QuepasaToChatwoot
+C8Q_POSTTOWEBCALLBACK=8
+
+# used by QuepasaToChatwoot
+C8Q_CHATWOOTTOQUEPASAGREETINGS=3
+
+C8Q_QP_DEFAULT_USER=coloque email do Quepasa
+
+# get initial from $N8N_HOST, otherwise from here
+C8Q_CW_PUBLIC_URL=seudominio
+```
+
 </p>
 export WEBHOOK_URL=https://seudominio.com.br
 </p>
@@ -340,11 +374,7 @@ Faça os cadastros em todos eles
 
 **Configue os Worflows no N8N**
 
-</p>
-Baixe Worflows
-</p>
-https://github.com/nocodeleaks/quepasa/tree/main/extra/n8n%2Bchatwoot
-</p>
+
 Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
 </p>
 Adicione seu email NO COLOCAR DADOS
@@ -352,14 +382,6 @@ Adicione seu email NO COLOCAR DADOS
 <hr />
 
 </p>
-
-**Worflows ChatwootToQuepasa QuepasaToChatwoot**
-
-</p>
-Adicione numeros NOS Trigger com numeros correspondente a Workflow
-</p>
-
-<hr />
 
 **Criando sua Caixa de Entrada**
 

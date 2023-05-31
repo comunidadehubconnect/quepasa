@@ -23,6 +23,7 @@
 	<a href="https://telinkei.com/gp-n8n-zap" target="_blank">Grupo</a>
 </p>
 <hr />
+<hr />
 
 **Gostou do Tutorial? Faça sua Contribuição**
 
@@ -35,8 +36,8 @@
 45959142000119	
 ```
 
-----------------------------------------------------------------------------
-----------------------------------------------------------------------------
+<hr />
+<hr />
 
 
 **Manual de Instalação ChatWoot**
@@ -221,8 +222,8 @@ pm2 restart all --update-env
 </p>
 
 
-----------------------------------------------------------------------------
-----------------------------------------------------------------------------
+<hr />
+<hr />
 
 **Manual de Instalação API Quepasa**
 
@@ -295,7 +296,7 @@ sudo certbot --nginx
 sudo service nginx restart
 </p>
 
-----------------------------------------------------------------------------
+<hr />
 
 **Ativando SSL da API Quepasa**
 
@@ -312,7 +313,7 @@ WEBSOCKETSSL=true
 systemctl restart quepasa
 </p>
 
-----------------------------------------------------------------------------
+<hr />
 
 ***Execute esse processo abaixo parra deixar mais rapida sua API**
 
@@ -321,7 +322,7 @@ nano /etc/hosts
 Adicione isso na primeira linha 
 127.0.0.1       localhost app.dominio.com.br conector.dominio.com.br api.dominio.com.br
 
-----------------------------------------------------------------------------
+<hr />
 
 **Instalação Finalizadas**
 
@@ -343,7 +344,7 @@ Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
 </p>
 Adiocione seu email NO COLOCAR DADOS
 
-----------------------------------------------------------------------------
+<hr />
 
 </p>
 
@@ -352,7 +353,9 @@ Adiocione seu email NO COLOCAR DADOS
 </p>
 Adicione numeros NOS Trigger com numeros correspondente a Workflow
 </p>
-----------------------------------------------------------------------------
+
+
+<hr />
 
 **Criando sua Caixa de Entrada**
 
@@ -386,4 +389,5 @@ Leia QRCODE
 45959142000119	
 ```
 
-----------------------------------------------------------------------------
+<hr />
+<hr />

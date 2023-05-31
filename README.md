@@ -132,6 +132,7 @@ WIDGET_BRAND_URL
 </p>
 
 <hr />
+<hr />
 
 **Manual de Instalação N8N**
 

@@ -332,14 +332,48 @@ quepa.dominio.com.br/setup
 Faça os cadastros em todos eles
 </p>
 
+</p>
+
+<hr />
+<hr />
+
+**Configue os Worflows no N8N**
+
+</p>
+Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
+</p>
+Adiocione seu email NO COLOCAR DADOS
 
 ----------------------------------------------------------------------------
+
+</p>
+
+**Worflows ChatwootToQuepasa QuepasaToChatwoot**
+
+</p>
+Adicione numeros NOS Trigger com numeros correspondente a Workflow
+</p>
 ----------------------------------------------------------------------------
+
+**Criando sua Caixa de Entrada**
+
+</p>
+Envia uma mensagem para Contato Criado
+</p>
+Quepasa Control
+</p>
+/qrcode
+</p>
+Leia QRCODE
+</p>
+
+<hr />
+<hr />
 
 **Pronto tudo Funcionando**
 
-----------------------------------------------------------------------------
-----------------------------------------------------------------------------
+<hr />
+<hr />
 
 **Gostou do Tutorial? Faça sua Contribuição**
 

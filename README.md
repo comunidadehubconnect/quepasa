@@ -283,8 +283,7 @@ git clone https://github.com/nocodeleaks/quepasa /opt/quepasa-source
 bash /opt/quepasa-source/helpers/install.sh
 ```
 
-</p>
-sudo apt install nginx
+
 </p>
 
 </p>
@@ -374,7 +373,12 @@ Faça os cadastros em todos eles
 
 **Configue os Worflows no N8N**
 
-
+Adicione nodes ao seu N8N
+</p>
+n8n-nodes-chatwoot
+</p>
+n8n-nodes-quepasa
+</p>
 Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
 </p>
 Adicione seu email NO COLOCAR DADOS

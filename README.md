@@ -202,8 +202,6 @@ server {
 </p>
 sudo ln -s /etc/nginx/sites-available/n8n /etc/nginx/sites-enabled
 </p>
-sudo certbot --nginx
-</p>
 sudo service nginx restart
 </p>
 pm2 start n8n --cron-restart="0 0 * * *" -- start
@@ -326,12 +324,6 @@ sudo certbot --nginx
 </p>
 sudo service nginx restart
 </p>
-</p>
-
-
-sudo certbot --nginx
-</p>
-sudo service nginx restart
 </p>
 
 <hr />

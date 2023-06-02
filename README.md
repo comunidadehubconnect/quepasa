@@ -215,7 +215,7 @@ pm2 start n8n --cron-restart="0 0 * * *" -- start
 </p>
 sudo pm2 startup ubuntu -u root && sudo pm2 startup ubuntu -u root --hp /root && sudo pm2 save
 </p>
-cd 
+cd /root/.n8n
 </p>
 git clone https://github.com/EngajamentoFlow/quepasa
 </p>
@@ -223,7 +223,7 @@ export N8N_EDITOR_BASE_URL=https://seudominio.com.br
 </p>
 export WEBHOOK_URL=https://seudominio.com.br
 </p>
-nano /root/.n8n/.env
+nano .env
 </p>
 Abaixo altere C8Q_QP_DEFAULT_USER=coloque email do Quepasa, C8Q_CW_PUBLIC_URL=dominiochatwoot
 </p>

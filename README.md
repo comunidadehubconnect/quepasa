@@ -386,7 +386,6 @@ n8n-nodes-quepasa
 </p>
 Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
 </p>
-Adicione seu email NO COLOCAR DADOS
 
 <hr />
 

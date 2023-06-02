@@ -268,14 +268,6 @@ pm2 restart all --update-env
 
 **Manual de Instalação API Quepasa**
 
-</p></p>
-sudo apt update && sudo apt upgrade y
-</p>
-curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-</p>
-sudo apt-get install -y nodejs
-</p>
-sudo apt-get install git-all
 </p>
 
 ```
@@ -366,6 +358,19 @@ quepa.dominio.com.br/setup
 Faça os cadastros em todos eles
 </p>
 
+</p>
+
+<hr />
+<hr />
+
+**Baixe Worflows**
+
+</p>
+https://github.com/nocodeleaks/quepasa
+</p>
+Worflows esta na pasta 
+</p>
+extra/n8n+chatwoot
 </p>
 
 <hr />

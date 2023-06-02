@@ -255,7 +255,8 @@ C8Q_QP_DEFAULT_USER=coloque email do Quepasa
 # get initial from $N8N_HOST, otherwise from here
 C8Q_CW_PUBLIC_URL=dominiochatwoot
 ```
-
+</p>
+cd
 </p>
 ln -s ./.n8n/.env .env
 </p>

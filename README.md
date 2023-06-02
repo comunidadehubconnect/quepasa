@@ -217,7 +217,6 @@ sudo pm2 startup ubuntu -u root && sudo pm2 startup ubuntu -u root --hp /root &&
 </p>
 cd /root/.n8n
 </p>
-git clone https://github.com/EngajamentoFlow/quepasa
 </p>
 export N8N_EDITOR_BASE_URL=https://seudominio.com.br
 </p>

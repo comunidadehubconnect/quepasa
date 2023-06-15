@@ -253,6 +253,13 @@ C8Q_QP_DEFAULT_USER=coloque email do Quepasa
 
 # get initial from $N8N_HOST, otherwise from here
 C8Q_CW_PUBLIC_URL=dominiochatwoot
+
+# (optional) set title for sincrony bot for messages from whatsapp
+C8Q_QP_BOTTITLE=""
+
+# (optional) set identifier for quepasa inbox control contact
+C8Q_QP_CONTACT=""
+      
 ```
 </p>
 cd

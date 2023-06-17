@@ -343,6 +343,16 @@ systemctl restart quepasa
 
 <hr />
 
+Opcional 
+
+nano /opt/quepasa-source/src/.env
+
+Linha 1 adicione variavel 
+
+APP_TITLE=Nome da Sua Empresa
+
+<hr />
+
 ***Execute esse processo abaixo parra deixar mais rapida sua API**
 
 nano /etc/hosts

@@ -150,7 +150,6 @@ sudo npm install n8n -g
 </p>
 npm update -g n8n
 </p>
-sudo apt install npm
 </p>
 npm install pm2 -g
 </p>

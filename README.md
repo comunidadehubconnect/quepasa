@@ -222,7 +222,7 @@ C8Q_CW_PUBLIC_URL=dominiochatwoot
 C8Q_QP_CONTACT+Seu email
 <hr />
 
-</p></p>
+```
 C8Q_SINGLETHREAD=false
 </p>
 C8Q_QUEPASAINBOXCONTROL=1001
@@ -250,6 +250,8 @@ C8Q_QP_BOTTITLE="Chatwoot"
 C8Q_QP_CONTACT="nome@seudomnio.com.br"
 </p>
 pm2 restart all --update-env
+```
+
 </p>
 cd
 </p>

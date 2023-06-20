@@ -360,6 +360,22 @@ Leia QRCODE
 <hr />
 <hr />
 
+
+</p>
+Opcional se não chamar Qrcode
+</p>
+sudo add-apt-repository ppa:redislabs/
+</p>
+sudo apt update
+</p>
+sudo apt install redis
+</p>
+sudo apt-get install libvips
+</p>
+
+<hr />
+<hr />
+
 **Pronto tudo Funcionando**
 
 <hr />

@@ -214,14 +214,13 @@ export WEBHOOK_URL=https://seudominio.com.br
 </p>
 nano .env
 
-**Abaixo altere
 </p>
 C8Q_QP_DEFAULT_USER=coloque email do Quepasa, 
 </p>
 C8Q_CW_PUBLIC_URL=dominiochatwoot
 </p>
 C8Q_QP_CONTACT+Seu email
-</p>
+<hr />
 
 </p></p>
 C8Q_SINGLETHREAD=false

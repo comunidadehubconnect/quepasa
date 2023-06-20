@@ -326,8 +326,6 @@ Faça os cadastros em todos eles
 
 </p>
 
-<hr />
-<hr />
 
 <hr />
 <hr 

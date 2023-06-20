@@ -216,10 +216,6 @@ export N8N_EDITOR_BASE_URL=https://seudominio.com.br
 </p>
 export WEBHOOK_URL=https://seudominio.com.br
 </p>
-nano .env
-</p>
-Abaixo altere C8Q_QP_DEFAULT_USER=coloque email do Quepasa, C8Q_CW_PUBLIC_URL=dominiochatwoot
-</p>
 
 <hr />
 <hr />

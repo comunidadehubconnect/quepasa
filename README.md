@@ -246,7 +246,7 @@ pm2 restart all --update-env
 </p>
 cd
 </p>
-ln -s ./.n8n/.env .en
+ln -s ./.n8n/.env .env
 </p>
 
 

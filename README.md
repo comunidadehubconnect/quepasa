@@ -225,8 +225,13 @@ export WEBHOOK_URL=https://seudominio.com.br
 </p>
 
 ```
+# Clonar GitHub
 git clone https://github.com/nocodeleaks/quepasa /opt/quepasa-source
+
+# Instalando API Quepasa
 bash /opt/quepasa-source/helpers/install.sh
+
+# Importanto Worflows Automatico
 bash /opt/quepasa-source/helpers/update-workflows.sh
 ```
 

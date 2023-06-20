@@ -140,10 +140,6 @@ WIDGET_BRAND_URL
 </p>
 sudo apt update && sudo apt upgrade y
 </p>
-curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-</p>
-sudo apt-get install -y nodejs
-</p>
 node -v
 </p>
 sudo npm install n8n -g
@@ -333,9 +329,11 @@ Faça os cadastros em todos eles
 <hr />
 <hr />
 
-**Baixe Worflows**
-
 </p>
+
+<hr />
+<hr />
+
 https://github.com/nocodeleaks/quepasa
 </p>
 Worflows esta na pasta 
@@ -344,7 +342,7 @@ extra/n8n+chatwoot
 </p>
 
 <hr />
-<hr />
+<hr 
 
 **Configue os Worflows no N8N**
 

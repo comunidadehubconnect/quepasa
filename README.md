@@ -396,8 +396,6 @@ Leia QRCODE
 
 
 </p>
-cd
-</p>
 Opcional se não chamar Qrcode
 </p>
 sudo add-apt-repository ppa:redislabs

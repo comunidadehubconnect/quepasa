@@ -315,7 +315,15 @@ sudo service nginx restart
 
 nano /opt/quepasa-source/src/.env
 </p>
-Alterar linha 1
+Adicione linha 1
+</p>
+APP_TITLE=Nome da Sua Empresa
+</p>
+</p>
+
+</p>
+
+Alterar linha 2
 </p>
 WEBSOCKETSSL=false
 </p>
@@ -327,15 +335,6 @@ systemctl restart quepasa
 </p>
 
 <hr />
-
-Opcional 
-
-nano /opt/quepasa-source/src/.env
-
-Linha 1 adicione variavel 
-
-APP_TITLE=Nome da Sua Empresa
-
 <hr />
 
 ***Execute esse processo abaixo parra deixar mais rapida sua API**

@@ -269,16 +269,19 @@ ln -s ./.n8n/.env .en
 
 </p>
 
-```
+</p>
 # Clonar GitHub
+</p>
 git clone https://github.com/nocodeleaks/quepasa /opt/quepasa-source
-
+</p>
 # Instalando API Quepasa
+</p>
 bash /opt/quepasa-source/helpers/install.sh
-
+</p>
 # Importanto Worflows Automatico
+</p>
 bash /opt/quepasa-source/helpers/update-workflows.sh
-```
+</p>
 
 
 </p>

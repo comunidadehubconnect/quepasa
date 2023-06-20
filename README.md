@@ -139,9 +139,6 @@ WIDGET_BRAND_URL
 </p>
 cd
 </p>
-sudo apt update && sudo apt upgrade y
-</p>
-node -v
 </p>
 sudo npm install n8n -g
 </p>

@@ -329,18 +329,6 @@ Faça os cadastros em todos eles
 <hr />
 <hr />
 
-</p>
-
-<hr />
-<hr />
-
-https://github.com/nocodeleaks/quepasa
-</p>
-Worflows esta na pasta 
-</p>
-extra/n8n+chatwoot
-</p>
-
 <hr />
 <hr 
 

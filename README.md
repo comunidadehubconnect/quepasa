@@ -136,7 +136,8 @@ WIDGET_BRAND_URL
 
 **Manual de Instalação N8N**
 
-
+</p>
+cd
 </p>
 sudo apt update && sudo apt upgrade y
 </p>
@@ -258,6 +259,9 @@ ln -s ./.n8n/.env .env
 
 </p>
 
+</p>
+cd
+</p>
 </p>
 # Clonar GitHub
 </p>
@@ -403,9 +407,11 @@ Leia QRCODE
 
 
 </p>
+cd
+</p>
 Opcional se não chamar Qrcode
 </p>
-sudo add-apt-repository ppa:redislabs/
+sudo add-apt-repository ppa:redislabs
 </p>
 sudo apt update
 </p>

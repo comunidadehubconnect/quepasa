@@ -237,7 +237,7 @@ C8Q_POSTTOWEBCALLBACK=1005
 
 C8Q_POSTTOCHATWOOT=1006
 
-C8Q_CHATWOOTTOQUEPASAGREETINGS=
+C8Q_CHATWOOTTOQUEPASAGREETINGS=1007
 
 C8Q_QP_DEFAULT_USER=coloque email do Quepasa
 
@@ -248,9 +248,11 @@ C8Q_QP_DEFAULT_USER="nome@seudomnio.com.br"
 C8Q_QP_BOTTITLE="Chatwoot"
 
 C8Q_QP_CONTACT="nome@seudomnio.com.br"
-
-pm2 restart all --update-env
 ```
+</p>
+pm2 restart all --update-env
+</p>
+
 
 </p>
 cd

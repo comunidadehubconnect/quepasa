@@ -211,14 +211,15 @@ export N8N_EDITOR_BASE_URL=https://seudominio.com.br
 export WEBHOOK_URL=https://seudominio.com.br
 </p>
 nano .env
-
 </p>
-C8Q_QP_DEFAULT_USER=coloque email do Quepasa, 
+Altere as seguintes variaveis baixo no arquivo .env
+</p>
+C8Q_QP_DEFAULT_USER=coloque email do Quepasa
 </p>
 C8Q_CW_PUBLIC_URL=dominiochatwoot
 </p>
-C8Q_QP_CONTACT+Seu email
-<hr />
+C8Q_QP_CONTACT=Seu email
+</p>
 
 ```
 C8Q_SINGLETHREAD=false
@@ -236,16 +237,11 @@ C8Q_QP_CONTACT="contato@seudominio.com.br"
 ```
 
 </p>
+cp .env /root
+</p>
+</p>
 pm2 restart all --update-env
 </p>
-
-
-</p>
-cd
-</p>
-ln -s ./.n8n/.env .env
-</p>
-
 
 
 <hr />

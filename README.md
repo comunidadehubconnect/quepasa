@@ -224,31 +224,20 @@ C8Q_QP_CONTACT+Seu email
 
 ```
 C8Q_SINGLETHREAD=false
-
 C8Q_QUEPASAINBOXCONTROL=1001
-
 C8Q_GETCHATWOOTCONTACTS=1002
-
 C8Q_QUEPASACHATCONTROL=1003
-
 C8Q_CHATWOOTPROFILEUPDATE=1004
-
 C8Q_POSTTOWEBCALLBACK=1005
-
 C8Q_POSTTOCHATWOOT=1006
-
 C8Q_CHATWOOTTOQUEPASAGREETINGS=1007
-
-C8Q_QP_DEFAULT_USER=coloque email do Quepasa
-
-C8Q_CW_PUBLIC_URL="chatwoot.seudomnio.com.br"
-
-C8Q_QP_DEFAULT_USER="nome@seudomnio.com.br"
-
+C8Q_QP_DEFAULT_USER="chatwoot.seudominio.com.br"
+C8Q_CW_PUBLIC_URL="chatwoot.seudominio.com.br"
+C8Q_QP_DEFAULT_USER="contatoo@seudominio.com.br"
 C8Q_QP_BOTTITLE="Chatwoot"
-
-C8Q_QP_CONTACT="nome@seudomnio.com.br"
+C8Q_QP_CONTACT="contato@seudominio.com.br"
 ```
+
 </p>
 pm2 restart all --update-env
 </p>

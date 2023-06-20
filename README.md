@@ -212,6 +212,52 @@ export N8N_EDITOR_BASE_URL=https://seudominio.com.br
 </p>
 export WEBHOOK_URL=https://seudominio.com.br
 </p>
+nano .env
+
+**Abaixo altere
+</p>
+C8Q_QP_DEFAULT_USER=coloque email do Quepasa, 
+</p>
+C8Q_CW_PUBLIC_URL=dominiochatwoot
+</p>
+C8Q_QP_CONTACT+Seu email
+</p>
+
+</p></p>
+C8Q_SINGLETHREAD=false
+</p>
+C8Q_QUEPASAINBOXCONTROL=1001
+</p>
+C8Q_GETCHATWOOTCONTACTS=1002
+</p>
+C8Q_QUEPASACHATCONTROL=1003
+</p>
+C8Q_CHATWOOTPROFILEUPDATE=1004
+</p>
+C8Q_POSTTOWEBCALLBACK=1005
+</p>
+C8Q_POSTTOCHATWOOT=1006
+</p>
+C8Q_CHATWOOTTOQUEPASAGREETINGS=
+</p>
+C8Q_QP_DEFAULT_USER=coloque email do Quepasa
+</p>
+C8Q_CW_PUBLIC_URL="chatwoot.seudomnio.com.br"
+</p>
+C8Q_QP_DEFAULT_USER="nome@seudomnio.com.br"
+</p>
+C8Q_QP_BOTTITLE="Chatwoot"
+</p>
+C8Q_QP_CONTACT="nome@seudomnio.com.br"
+</p>
+pm2 restart all --update-env
+</p>
+cd
+</p>
+ln -s ./.n8n/.env .en
+</p>
+
+
 
 <hr />
 <hr />

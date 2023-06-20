@@ -349,6 +349,10 @@ Adicione isso na primeira linha
 **Instalação Finalizadas**
 
 </p>
+chatwoot.seudominio.com.br
+</p>
+n8n.seudominio.com.br
+</p>
 quepa.dominio.com.br/setup
 </p>
 Faça os cadastros em todos eles

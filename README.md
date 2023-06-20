@@ -221,49 +221,6 @@ nano .env
 Abaixo altere C8Q_QP_DEFAULT_USER=coloque email do Quepasa, C8Q_CW_PUBLIC_URL=dominiochatwoot
 </p>
 
-```
-# enable a single conversation per contact, for all life time, not just a ticket
-C8Q_SINGLETHREAD=false
-
-# used by ChatwootToQuepasa
-C8Q_QUEPASAINBOXCONTROL=7
-
-# used by ChatwootToQuepasa | QuepasaToChatwoot
-C8Q_QUEPASACHATCONTROL=6
-
-# used by ChatwootToQuepasa
-C8Q_CHATWOOTPROFILEUPDATE=1
-
-# used by QuepasaToChatwoot
-C8Q_POSTTOCHATWOOT=4
-
-# used by QuepasaToChatwoot
-C8Q_POSTTOWEBCALLBACK=8
-
-# used by QuepasaToChatwoot
-C8Q_CHATWOOTTOQUEPASAGREETINGS=3
-
-C8Q_QP_DEFAULT_USER=coloque email do Quepasa
-
-# get initial from $N8N_HOST, otherwise from here
-C8Q_CW_PUBLIC_URL=dominiochatwoot
-
-# (optional) set title for sincrony bot for messages from whatsapp
-C8Q_QP_BOTTITLE=""
-
-# (optional) set identifier for quepasa inbox control contact
-C8Q_QP_CONTACT=""
-      
-```
-</p>
-cd
-</p>
-ln -s ./.n8n/.env .env
-</p>
-pm2 restart all --update-env
-</p>
-
-
 <hr />
 <hr />
 

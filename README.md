@@ -377,7 +377,21 @@ Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
 
 <hr />
 
+**Instalando Redis**
+
 </p>
+sudo add-apt-repository ppa:redislabs/redis
+</p>
+sudo apt update
+</p>
+sudo apt install redis
+</p>
+sudo apt-get install libvips
+</p>
+
+<hr />
+</p>
+
 
 **Criando sua Caixa de Entrada**
 
@@ -390,23 +404,6 @@ Quepasa Control
 </p>
 Leia QRCODE
 </p>
-
-<hr />
-<hr />
-
-
-</p>
-Opcional se não chamar Qrcode
-</p>
-sudo add-apt-repository ppa:redislabs
-</p>
-sudo apt update
-</p>
-sudo apt install redis
-</p>
-sudo apt-get install libvips
-</p>
-
 <hr />
 <hr />
 

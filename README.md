@@ -48,7 +48,7 @@ wget https://get.chatwoot.app/linux/install.sh
 </p>
 chmod +x install.sh
 </p>
-./install.sh --install
+sudo ./install.sh --install
 </p>
 Use as opções abaixo
 </p>

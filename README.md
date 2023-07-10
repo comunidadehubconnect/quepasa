@@ -206,19 +206,21 @@ sudo pm2 startup ubuntu -u root && sudo pm2 startup ubuntu -u root --hp /root &&
 cd /root/.n8n
 </p>
 </p>
-export N8N_EDITOR_BASE_URL=https://seudominio.com.br
-</p>
-export WEBHOOK_URL=https://seudominio.com.br
-</p>
 nano .env
 </p>
 Altere as seguintes variaveis baixo no arquivo .env
 </p>
 C8Q_QP_DEFAULT_USER=coloque email do Quepasa
 </p>
-C8Q_CW_PUBLIC_URL=dominiochatwoot
+C8Q_QP_BOTTITLE=Nome da Plataforma
+</p>
+C8Q_CW_PUBLIC_URL=domniochatwoot
 </p>
 C8Q_QP_CONTACT=Seu email
+</p>
+C8Q_QP_CONTACT=Seu email
+</p>
+WEBHOOK_URL=Seu email
 </p>
 
 ```
@@ -234,6 +236,8 @@ C8Q_CW_PUBLIC_URL="chatwoot.seudominio.com.br"
 C8Q_QP_DEFAULT_USER="contatoo@seudominio.com.br"
 C8Q_QP_BOTTITLE="Chatwoot"
 C8Q_QP_CONTACT="contato@seudominio.com.br"
+N8N_EDITOR_BASE_URL=https://seudominio.com.br
+WEBHOOK_URL=https://seudominio.com.br
 ```
 
 </p>
@@ -335,7 +339,23 @@ systemctl restart quepasa
 </p>
 
 <hr />
+<hr 
+
+**Instalando Redis**
+
+</p>
+sudo add-apt-repository ppa:redislabs/redis
+</p>
+sudo apt update
+</p>
+sudo apt install redis
+</p>
+sudo apt-get install libvips
+</p>
+
 <hr />
+</p>
+
 
 ***Execute esse processo abaixo parra deixar mais rapida sua API**
 
@@ -374,24 +394,13 @@ n8n-nodes-quepasa
 </p>
 Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
 </p>
+reboot
+</p>
+Após colocar credeciais nos Worflows salve todos 
+</p>
+
 
 <hr />
-
-**Instalando Redis**
-
-</p>
-sudo add-apt-repository ppa:redislabs/redis
-</p>
-sudo apt update
-</p>
-sudo apt install redis
-</p>
-sudo apt-get install libvips
-</p>
-
-<hr />
-</p>
-
 
 **Criando sua Caixa de Entrada**
 

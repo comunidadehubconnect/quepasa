@@ -89,7 +89,7 @@ Faça seu cadastro
 </p>
 No banco de dados PostgreSQL
 </p>
-sudo -u postgres psql
+sudo -i -u postgres psql
 </p>
 \c chatwoot_production
 </p>

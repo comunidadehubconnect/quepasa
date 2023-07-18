@@ -220,7 +220,8 @@ C8Q_QP_CONTACT=Seu email
 </p>
 C8Q_QP_CONTACT=Seu email
 </p>
-WEBHOOK_URL=https://seudominio.com.br
+WEBHOOK_URL=https://conector.dominio.com.br
+N8N_EDITOR_BASE_URL=https://conector.dominio.com.br
 </p>
 
 ```
@@ -236,8 +237,8 @@ C8Q_CW_PUBLIC_URL="chatwoot.seudominio.com.br"
 C8Q_QP_DEFAULT_USER="contatoo@seudominio.com.br"
 C8Q_QP_BOTTITLE="Chatwoot"
 C8Q_QP_CONTACT="contato@seudominio.com.br"
-N8N_EDITOR_BASE_URL=https://seudominio.com.br
-WEBHOOK_URL=https://seudominio.com.br
+N8N_EDITOR_BASE_URL="https://conector.dominio.com.br"
+WEBHOOK_URL="https://conector.dominio.com.br"
 ```
 
 </p>

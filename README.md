@@ -220,7 +220,7 @@ C8Q_QP_CONTACT=Seu email
 </p>
 C8Q_QP_CONTACT=Seu email
 </p>
-WEBHOOK_URL=Seu email
+WEBHOOK_URL=https://seudominio.com.br
 </p>
 
 ```

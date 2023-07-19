@@ -422,6 +422,43 @@ Leia QRCODE
 <hr />
 <hr />
 
+
+**Opcional: Para individualizar conversas entre agentes**
+
+
+```bash
+
+mv /home/chatwoot/chatwoot/app/javascript/dashboard/components/ChatList.vue /home/chatwoot/chatwoot/app/javascript/dashboard/components/ChatList.vue.old
+
+```
+
+</p>
+cd /home/chatwoot/chatwoot/app/javascript/dashboard/components
+</p>
+
+```bash
+
+wget "https://raw.githubusercontent.com/EngajamentoFlow/quepasa/main/ChatList.vue"
+
+```
+
+</p>
+Após alterações acima, rebuildar seu Chatwoot
+</p>
+sudo -i -u chatwoot
+</p>
+cd chatwoot
+</p>
+rake assets:precompile RAILS_ENV=production
+</p>
+exit
+</p>
+systemctl daemon-reload && systemctl restart chatwoot.target
+</p>
+
+<hr />
+<hr />
+
 **Gostou do Tutorial? Faça sua Contribuição**
 
 <img src="https://github.com/EngajamentoFlow/quepasa/blob/main/Contribui%C3%A7%C3%A3o.png" alt="Quepasa-logo" width="200" />

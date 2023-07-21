@@ -324,6 +324,7 @@ Adicione linha 1
 </p>
 APP_TITLE=Nome da Sua Empresa
 </p>
+REMOVEDIGIT9=true
 </p>
 
 </p>

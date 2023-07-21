@@ -324,12 +324,6 @@ Adicione linha 1
 </p>
 APP_TITLE=Nome da Sua Empresa
 </p>
-Altere para True
-</p>
-REMOVEDIGIT9=true
-</p>
-
-</p>
 
 Alterar linha 2
 </p>
@@ -338,6 +332,10 @@ WEBSOCKETSSL=false
 para
 </p>
 WEBSOCKETSSL=true
+</p>
+Alterar linha 8
+</p>
+REMOVEDIGIT9=true
 </p>
 systemctl restart quepasa
 </p>

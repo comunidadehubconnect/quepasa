@@ -28,15 +28,21 @@
 
 ### Atualize sua máquina com os últimos pacotes
 
-`sudo apt update && apt upgrade -y`
+```bash
+sudo apt update && apt upgrade -y
+```
 
 ### Baixe o instalador automático do Chatwoot
 
-`wget https://get.chatwoot.app/linux/install.sh`
+```bash
+wget https://get.chatwoot.app/linux/install.sh
+```
 
 ### Execute a permisão no arquivo install.sh
 
-`chmod +x install.sh`
+```bash
+chmod +x install.sh
+```
 
 ### Inicie a instalação, digite "yes" para SSL, em seguida digite seu dominio e prossiga confimando com yes.
 ### Esse processo vai levar média ~ 15
@@ -49,26 +55,27 @@ Use as opções abaixo
 
 yes
 
-chatwoot.dominio.com.br
+app.dominio.com.br
 
 contato@dominio.com.br
 
 yes para todos
 
 ### Alterando Idioma e ativando sua tela de cadastro
+
+```bash
 nano /home/chatwoot/chatwoot/.env
+```
 
 Altere a linha:
 
-```bash
-DEFAULT_LOCALE=pt_BR` para `ENABLE_ACCOUNT_SIGNUP=true
-```
+`DEFAULT_LOCALE=pt_BR` para `ENABLE_ACCOUNT_SIGNUP=true`
 
 ```bash
 systemctl daemon-reload && systemctl restart chatwoot.target
 ```
 
-Acesse: seudominio.com.br
+Acesse: app.seudominio.com.br
 
 Faça seu cadastro
 
@@ -92,7 +99,7 @@ update installation_configs set locked = false;
 <details>
 <summary>Manual de Instalação N8N</summary>
 
-cd
+Para seu Chatwoot funcionar corretamente com API Quepasa, instale a versão abaixo compativél
 
 ```bash
 sudo npm install -g n8n@0.230.3
@@ -116,7 +123,7 @@ sudo nano /etc/nginx/sites-available/n8n
 
 ```bash
 server {
-  server_name conector.dominio.com;
+  server_name conector.dominio.com.br;
   
   underscores_in_headers on;
 
@@ -143,32 +150,43 @@ server {
 } 
   ```
 
+```bash
 sudo ln -s /etc/nginx/sites-available/n8n /etc/nginx/sites-enabled
+```
 
+```bash
 sudo certbot --nginx
+```
 
+```bash
 sudo service nginx restart
+```
 
+```bash
 pm2 start n8n --cron-restart="0 0 * * *" -- start
+```
 
+### Execute esse comando abaixo para não cair seu n8n quando você reiniciar sua VPS
 
-### EXECUTE COMANDO ABAIXO PARA NÃO CAIR QUANDO REINICIAR A VPS
+```bash
+sudo pm2 startup ubuntu -u root && sudo pm2 startup ubuntu -u root --hp /root && sudo pm2 save
+```
 
-`sudo pm2 startup ubuntu -u root && sudo pm2 startup ubuntu -u root --hp /root && sudo pm2 save`
+```bash
+nano /root/.n8n/.env
+```
 
-`nano /root/.n8n/.env`
-
-Altere as seguintes variaveis baixo no arquivo .env
+Altere as seguintes variaveis baixo no arquivo `.env`
 
 C8Q_QP_DEFAULT_USER=coloque email do Quepasa
 
-C8Q_QP_BOTTITLE=Nome da Plataforma
+C8Q_QP_BOTTITLE=Nome do seu site
 
 C8Q_CW_PUBLIC_URL=domniochatwoot
 
 C8Q_QP_CONTACT=Seu email
 
-C8Q_QP_CONTACT=Seu email
+C8Q_QP_DEFAULT_USER=Seu email
 
 WEBHOOK_URL=https://conector.dominio.com.br
 
@@ -193,16 +211,19 @@ WEBHOOK_URL="https://conector.dominio.com.br"
 
 # Cria um link simbólico chamado ".env" que aponta para o arquivo "./.n8n/.env" no sistema de arquivos.
 
-`ln -s ./.n8n/.env .env`
+```bash
+ln -s ./.n8n/.env .env
+pm2 restart all --update-env
+```
 
-`pm2 restart all --update-env`
+OBS: Não crie sua conta agora, antes de instalar API Quepasa!
 
 </details>
 
 <details>
 <summary>Manual de Instalação API Quepasa</summary>
 
-cd
+Instalação da API e importação dos worflows automáticos
 
 ```
 git clone https://github.com/nocodeleaks/quepasa /opt/quepasa-source
@@ -210,7 +231,9 @@ bash /opt/quepasa-source/helpers/install.sh
 bash /opt/quepasa-source/helpers/update-workflows.sh
 ```
 
+```bash
 sudo nano /etc/nginx/sites-available/quepasa
+```
 
 ```bash
 server {
@@ -242,11 +265,17 @@ server {
   }
 ```
 
+```bash
 sudo ln -s /etc/nginx/sites-available/quepasa /etc/nginx/sites-enabled
+```
 
+```bash
 sudo certbot --nginx
+```
 
+```bash
 sudo service nginx restart
+```
 
 ### Ativando SSL da API Quepasa
 
@@ -258,54 +287,72 @@ Adicione na linha 1 `APP_TITLE=Nome da Sua Empresa`
 
 Alterar linha 2 de `WEBSOCKETSSL=false` para `WEBSOCKETSSL=true`
 
-Alterar linha 8 para `REMOVEDIGIT9=true`
-
 ```bash
 systemctl restart quepasa
 ```
+
+Agora sim! Tá liberado para fazer o cadastro no n8n na Quepasa 😎
 
 </details>
 
 <details>
 <summary>Opcional 1: Instalação do Redis</summary>
 
+```bash
 sudo add-apt-repository ppa:redislabs/redis
+```
 
+```bash
 sudo apt update
+```
 
+```bash
 sudo apt install redis
+```
 
+```bash
 sudo apt-get install libvips
+```
+
+```bash
+reboot
+```
+
 </details>
 
 <details>
 <summary>Opcional 2: Para individualizar conversas entre agentes</summary>
 
 ```bash
-
 mv /home/chatwoot/chatwoot/app/javascript/dashboard/components/ChatList.vue /home/chatwoot/chatwoot/app/javascript/dashboard/components/ChatList.vue.old
-
 ```
 
+```bash
 cd /home/chatwoot/chatwoot/app/javascript/dashboard/components
+```
 
 ```bash
-
 wget "https://raw.githubusercontent.com/EngajamentoFlow/quepasa/main/ChatList.vue"
-
 ```
 
 Após alterações acima, rebuildar seu Chatwoot
 
+```bash
 sudo -i -u chatwoot
-
 cd chatwoot
+```
 
+```bash
 rake assets:precompile RAILS_ENV=production
+```
 
+```bash
 exit
+```
 
+```bash
 systemctl daemon-reload && systemctl restart chatwoot.target
+```
 
 </details>
 
@@ -314,7 +361,7 @@ systemctl daemon-reload && systemctl restart chatwoot.target
 
 **Acesse super Admin**
 
-https://seudominio.com.br/super_admin
+https://app.seudominio.com.br/super_admin
 
 Navegue até a opção > installation_configs
 
@@ -339,35 +386,32 @@ WIDGET_BRAND_URL
 
 ### Instalações finalizadas ✅
 
-chatwoot.seudominio.com.br
-
-conector.seudominio.com.br
-
-api.dominio.com.br/setup
-
-Faça os cadastros em todos eles
-
-### Configue os Worflows no N8N
+Configue os Worflows no N8N
 
 Adicione os community nodes ao seu N8N
 
+```bash
 n8n-nodes-chatwoot
+```
 
+```bash
 n8n-nodes-quepasa
+```
 
 Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
-
-reboot
-
-Após colocar credenciais nos Worflows salve todos 
 
 ### Criando sua Caixa de Entrada
 
 Envia uma mensagem para Contato Criado
 
+```bash
 Quepasa Control
+```
+Digitando o comando abaixo
 
+```bash
 /qrcode
+```
 
 Leia QRCODE
 

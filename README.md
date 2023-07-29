@@ -161,25 +161,24 @@ pm2 start n8n --cron-restart="0 0 * * *" -- start
 sudo pm2 startup ubuntu -u root && sudo pm2 startup ubuntu -u root --hp /root && sudo pm2 save
 
 cd /root/.n8n
-</p>
-</p>
+
 nano .env
-</p>
+
 Altere as seguintes variaveis baixo no arquivo .env
-</p>
+
 C8Q_QP_DEFAULT_USER=coloque email do Quepasa
-</p>
+
 C8Q_QP_BOTTITLE=Nome da Plataforma
-</p>
+
 C8Q_CW_PUBLIC_URL=domniochatwoot
-</p>
+
 C8Q_QP_CONTACT=Seu email
-</p>
+
 C8Q_QP_CONTACT=Seu email
-</p>
+
 WEBHOOK_URL=https://conector.dominio.com.br
+
 N8N_EDITOR_BASE_URL=https://conector.dominio.com.br
-</p>
 
 ```
 C8Q_SINGLETHREAD=false
@@ -308,6 +307,7 @@ rake assets:precompile RAILS_ENV=production
 exit
 
 systemctl daemon-reload && systemctl restart chatwoot.target
+
 </detaisl>
 
 ### Instalações finalizadas ✅

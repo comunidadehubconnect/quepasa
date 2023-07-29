@@ -21,19 +21,20 @@
 	<img src="https://whatsapp.com/favicon.ico" alt="WhatsAPP-logo" width="32" />
 	<span>Grupo WhatsaAPP N8N: </span>
 	<a href="https://telinkei.com/gp-n8n-zap" target="_blank">Grupo</a>
-	
-<img src="https://github.com/EngajamentoFlow/quepasa/blob/main/Contribui%C3%A7%C3%A3o.png" alt="Quepasa-logo" width="200" />
 </p>
 
 <details>
-<summary>Manual de Instalação Chatwoot</summary>
+<summary>## Manual de Instalação Chatwoot</summary>
 
+```bash
 sudo apt update && apt upgrade -y
+
 wget https://get.chatwoot.app/linux/install.sh
 
 chmod +x install.sh
 
 ./install.sh --install
+```
 
 Use as opções abaixo
 
@@ -47,14 +48,13 @@ yes para todos
 
 ### Alterando Idioma e ativando sua tela de cadastro
 
-cd /home/chatwoot/chatwoot
-nano .env
+nano /home/chatwoot/chatwoot/.env
 
-Altere a linha
+Altere a linha:
 
 `DEFAULT_LOCALE=pt_BR` para `ENABLE_ACCOUNT_SIGNUP=true`
 
-sudo systemctl restart chatwoot.target
+`systemctl daemon-reload && systemctl restart chatwoot.target`
 
 Acesse: seudominio.com.br
 
@@ -64,8 +64,11 @@ Faça seu cadastro
 
 ```bash
 sudo -i -u postgres psql
+
 \c chatwoot_production
+
 update installation_configs set locked = false;
+
 \q
 ```
 
@@ -77,11 +80,13 @@ https://seudominio.com.br/super_admin
 
 Opção>installation_configs
 
+```bash
 LOGO
 LOGO_THUMBNAIL
 NOMES CHATWOOT:
+```
 
-### Alterando nomes na plataforma
+### Alterando nomes na Plataforma
 
 ```bash
 INSTALLATION_NAME

@@ -55,6 +55,38 @@ contato@dominio.com.br
 
 yes para todos
 
+### Alterando Idioma e ativando sua tela de cadastro
+nano /home/chatwoot/chatwoot/.env
+
+Altere a linha:
+
+```bash
+DEFAULT_LOCALE=pt_BR` para `ENABLE_ACCOUNT_SIGNUP=true
+```
+
+```bash
+systemctl daemon-reload && systemctl restart chatwoot.target
+```
+
+Acesse: seudominio.com.br
+
+Faça seu cadastro
+
+### Habilitando configurações ocultas do Chatwoot no banco de dados PostgreSQL
+
+```bash
+sudo -i -u postgres psql
+\c chatwoot_production
+```
+
+```bash
+update installation_configs set locked = false;
+```
+
+```bash
+\q
+```
+
 </details>
 
 <details>
@@ -62,15 +94,25 @@ yes para todos
 
 cd
 
+```bash
 sudo npm install -g n8n@0.230.3
+```
 
+```bash
 npm install pm2 -g
+```
 
+```bash
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+```
 
+```bash
 sudo apt install ./google-chrome-stable_current_amd64.deb
+```
 
+```bash
 sudo nano /etc/nginx/sites-available/n8n
+```
 
 ```bash
 server {
@@ -208,7 +250,9 @@ sudo service nginx restart
 
 ### Ativando SSL da API Quepasa
 
-`nano /opt/quepasa-source/src/.env`
+```bash
+nano /opt/quepasa-source/src/.env
+```
 
 Adicione na linha 1 `APP_TITLE=Nome da Sua Empresa`
 
@@ -216,7 +260,9 @@ Alterar linha 2 de `WEBSOCKETSSL=false` para `WEBSOCKETSSL=true`
 
 Alterar linha 8 para `REMOVEDIGIT9=true`
 
-`systemctl restart quepasa`
+```bash
+systemctl restart quepasa
+```
 
 </details>
 
@@ -264,34 +310,7 @@ systemctl daemon-reload && systemctl restart chatwoot.target
 </details>
 
 <details>
-<summary>Opcinal 3: Alterando Idioma e ativando sua tela de cadastro</summary>
-
-nano /home/chatwoot/chatwoot/.env
-
-Altere a linha:
-
-`DEFAULT_LOCALE=pt_BR` para `ENABLE_ACCOUNT_SIGNUP=true`
-
-`systemctl daemon-reload && systemctl restart chatwoot.target`
-
-Acesse: seudominio.com.br
-
-Faça seu cadastro
-
-### Habilitando configurações ocultas do Chatwoot no banco de dados PostgreSQL
-
-```bash
-sudo -i -u postgres psql
-\c chatwoot_production
-```
-
-```bash
-update installation_configs set locked = false;
-```
-
-```bash
-\q
-```
+<summary>Opcional 3: Configurações no super_admin</summary>
 
 NOMES CHATWOOT TERMOS E POLITICA DE PRIVACIDADE
 
@@ -299,7 +318,7 @@ NOMES CHATWOOT TERMOS E POLITICA DE PRIVACIDADE
 
 https://seudominio.com.br/super_admin
 
-Opção>installation_configs
+Navegue até a opção > installation_configs
 
 ```bash
 LOGO

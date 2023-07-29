@@ -108,10 +108,7 @@ WIDGET_BRAND_URL
 
 cd
 
-sudo npm install n8n -g
-
-npm update -g n8n
-
+sudo npm install -g n8n@0.230.3
 
 npm install pm2 -g
 
@@ -123,7 +120,7 @@ sudo nano /etc/nginx/sites-available/n8n
 
 ```bash
 server {
-  server_name n8n.dominio.com;
+  server_name conector.dominio.com;
   
   underscores_in_headers on;
 
@@ -200,6 +197,7 @@ C8Q_QP_CONTACT="contato@seudominio.com.br"
 N8N_EDITOR_BASE_URL="https://conector.dominio.com.br"
 WEBHOOK_URL="https://conector.dominio.com.br"
 ```
+
 # Cria um link simbólico chamado ".env" que aponta para o arquivo "./.n8n/.env" no sistema de arquivos.
 ln -s ./.n8n/.env .env
 
@@ -267,10 +265,11 @@ Alterar linha 2 de `WEBSOCKETSSL=false` para `WEBSOCKETSSL=true`
 Alterar linha 8 para `REMOVEDIGIT9=true`
 
 systemctl restart quepasa
+
 </details>
 
 <details>
-<summary>Opcional instalação do Redis</summary>
+<summary>Opcional 1: Instalação do Redis</summary>
 
 sudo add-apt-repository ppa:redislabs/redis
 
@@ -281,44 +280,8 @@ sudo apt install redis
 sudo apt-get install libvips
 </details>
 
-### Instalações finalizadas ✅
-
-chatwoot.seudominio.com.br
-
-conector.seudominio.com.br
-
-api.dominio.com.br/setup
-
-Faça os cadastros em todos eles
-
-### Configue os Worflows no N8N
-
-Adicione nodes ao seu N8N
-
-n8n-nodes-chatwoot
-
-n8n-nodes-quepasa
-
-Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
-
-reboot
-
-Após colocar credeciais nos Worflows salve todos 
-
-### Criando sua Caixa de Entrada**
-
-Envia uma mensagem para Contato Criado
-
-Quepasa Control
-
-/qrcode
-
-Leia QRCODE
-
-**Pronto tudo Funcionando** ✅😎
-
 <details>
-<summary>Opcional: Para individualizar conversas entre agentes</summary>
+<summary>Opcional 2: Para individualizar conversas entre agentes</summary>
 
 ```bash
 
@@ -346,3 +309,39 @@ exit
 
 systemctl daemon-reload && systemctl restart chatwoot.target
 </detaisl>
+
+### Instalações finalizadas ✅
+
+chatwoot.seudominio.com.br
+
+conector.seudominio.com.br
+
+api.dominio.com.br/setup
+
+Faça os cadastros em todos eles
+
+### Configue os Worflows no N8N
+
+Adicione os community nodes ao seu N8N
+
+n8n-nodes-chatwoot
+
+n8n-nodes-quepasa
+
+Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
+
+reboot
+
+Após colocar credenciais nos Worflows salve todos 
+
+### Criando sua Caixa de Entrada
+
+Envia uma mensagem para Contato Criado
+
+Quepasa Control
+
+/qrcode
+
+Leia QRCODE
+
+**Pronto tudo Funcionando** ✅😎

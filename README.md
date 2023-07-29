@@ -21,118 +21,79 @@
 	<img src="https://whatsapp.com/favicon.ico" alt="WhatsAPP-logo" width="32" />
 	<span>Grupo WhatsaAPP N8N: </span>
 	<a href="https://telinkei.com/gp-n8n-zap" target="_blank">Grupo</a>
-</p>
-<hr />
-<hr />
-
-**Gostou do Tutorial? Faça sua Contribuição**
-
+	
 <img src="https://github.com/EngajamentoFlow/quepasa/blob/main/Contribui%C3%A7%C3%A3o.png" alt="Quepasa-logo" width="200" />
 </p>
 
-**PIX CNPJ**
-
-```
-45959142000119	
-```
-
-<hr />
-<hr />
-
-
-**Manual de Instalação ChatWoot**
+<details>
+<summary>Manual de Instalação Chatwoot</summary>
 
 sudo apt update && apt upgrade -y
-</p>
 wget https://get.chatwoot.app/linux/install.sh
-</p>
+
 chmod +x install.sh
-</p>
+
 ./install.sh --install
-</p>
+
 Use as opções abaixo
-</p>
+
 yes
-</p>
+
 chatwoot.dominio.com.br
-</p>
+
 contato@dominio.com.br
-</p>
+
 yes para todos
-</p>
-<hr />
 
-**Alterando Idioma e ativando sua tela de cadastro**
+### Alterando Idioma e ativando sua tela de cadastro
 
-</p>
 cd /home/chatwoot/chatwoot
-</p>
 nano .env
-</p>
+
 Altere a linha
-</p>
-DEFAULT_LOCALE=pt_BR
-</p>
-ENABLE_ACCOUNT_SIGNUP=true
-</p>
+
+`DEFAULT_LOCALE=pt_BR` para `ENABLE_ACCOUNT_SIGNUP=true`
+
 sudo systemctl restart chatwoot.target
-</p>
+
 Acesse: seudominio.com.br
-</p>
+
 Faça seu cadastro
-</p>
 
-<hr />
+### Habilitando configurações ocultas do Chatwoot no banco de dados PostgreSQL
 
-**Habilitando configurações ocultas do Chatwoot**
-
-</p>
-No banco de dados PostgreSQL
-</p>
+```bash
 sudo -i -u postgres psql
-</p>
 \c chatwoot_production
-</p>
 update installation_configs set locked = false;
-</p>
 \q
-</p>
+```
 
-<hr />
-
-**NOMES CHATWOOT TERMOS E POLITICA DE PRIVACIDADE**
+NOMES CHATWOOT TERMOS E POLITICA DE PRIVACIDADE
 
 **Acesse super Admin**
-</p>
-https://seudominio.com.br/super_admin
-</p>
-Opção>installation_configs
-</p>
-LOGO
-</p>
-LOGO_THUMBNAIL
-</p>
-NOMES CHATWOOT:
-</p>
-Alterando nomes na plataforma
-</p>
-INSTALLATION_NAME
-</p>
-BRAND_NAME
-</p>
-TERMOS E POLITICA DE PRIVACIDADE
-</p>
-TERMS_URL
-</p>
-PRIVACY_URL
-</p>
-BRAND_URL
-</p>
-WIDGET_BRAND_URL
-</p>
 
-<hr />
-<hr />
+https://seudominio.com.br/super_admin
+
+Opção>installation_configs
+
+LOGO
+LOGO_THUMBNAIL
+NOMES CHATWOOT:
+
+### Alterando nomes na plataforma
+
+```bash
+INSTALLATION_NAME
+BRAND_NAME
+TERMOS E POLITICA DE PRIVACIDADE
+TERMS_URL
+PRIVACY_URL
+BRAND_URL
+WIDGET_BRAND_URL
+```
+
+</details>
 
 **Manual de Instalação N8N**
 

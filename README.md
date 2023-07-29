@@ -26,20 +26,20 @@
 <details>
 <summary>Manual de Instalação Chatwoot</summary>
 
-# Atualize sua máquina com os últimos pacotes
+### Atualize sua máquina com os últimos pacotes
 
 `sudo apt update && apt upgrade -y`
 
-# Baixe o instalador automático do Chatwoot
+### Baixe o instalador automático do Chatwoot
 
 `wget https://get.chatwoot.app/linux/install.sh`
 
-# Execute a permisão no arquivo install.sh
+### Execute a permisão no arquivo install.sh
 
 `chmod +x install.sh`
 
-# Inicie a instalação, digite "yes" para SSL, em seguida digite seu dominio e prossiga confimando com yes.
-# Esse processo vai levar média ~ 15
+### Inicie a instalação, digite "yes" para SSL, em seguida digite seu dominio e prossiga confimando com yes.
+### Esse processo vai levar média ~ 15
 
 ./install.sh --install
 
@@ -52,61 +52,6 @@ chatwoot.dominio.com.br
 contato@dominio.com.br
 
 yes para todos
-
-### Alterando Idioma e ativando sua tela de cadastro
-
-nano /home/chatwoot/chatwoot/.env
-
-Altere a linha:
-
-`DEFAULT_LOCALE=pt_BR` para `ENABLE_ACCOUNT_SIGNUP=true`
-
-`systemctl daemon-reload && systemctl restart chatwoot.target`
-
-Acesse: seudominio.com.br
-
-Faça seu cadastro
-
-### Habilitando configurações ocultas do Chatwoot no banco de dados PostgreSQL
-
-```bash
-sudo -i -u postgres psql
-\c chatwoot_production
-```
-
-```bash
-update installation_configs set locked = false;
-```
-
-```bash
-\q
-```
-
-NOMES CHATWOOT TERMOS E POLITICA DE PRIVACIDADE
-
-**Acesse super Admin**
-
-https://seudominio.com.br/super_admin
-
-Opção>installation_configs
-
-```bash
-LOGO
-LOGO_THUMBNAIL
-NOMES CHATWOOT:
-```
-
-### Alterando nomes na Plataforma
-
-```bash
-INSTALLATION_NAME
-BRAND_NAME
-TERMOS E POLITICA DE PRIVACIDADE
-TERMS_URL
-PRIVACY_URL
-BRAND_URL
-WIDGET_BRAND_URL
-```
 
 </details>
 
@@ -315,6 +260,63 @@ exit
 
 systemctl daemon-reload && systemctl restart chatwoot.target
 
+</details>
+
+<details>
+</summary>Opcinal 3: Alterando Idioma e ativando sua tela de cadastro</summary>
+
+nano /home/chatwoot/chatwoot/.env
+
+Altere a linha:
+
+`DEFAULT_LOCALE=pt_BR` para `ENABLE_ACCOUNT_SIGNUP=true`
+
+`systemctl daemon-reload && systemctl restart chatwoot.target`
+
+Acesse: seudominio.com.br
+
+Faça seu cadastro
+
+### Habilitando configurações ocultas do Chatwoot no banco de dados PostgreSQL
+
+```bash
+sudo -i -u postgres psql
+\c chatwoot_production
+```
+
+```bash
+update installation_configs set locked = false;
+```
+
+```bash
+\q
+```
+
+NOMES CHATWOOT TERMOS E POLITICA DE PRIVACIDADE
+
+**Acesse super Admin**
+
+https://seudominio.com.br/super_admin
+
+Opção>installation_configs
+
+```bash
+LOGO
+LOGO_THUMBNAIL
+NOMES CHATWOOT:
+```
+
+### Alterando nomes na Plataforma
+
+```bash
+INSTALLATION_NAME
+BRAND_NAME
+TERMOS E POLITICA DE PRIVACIDADE
+TERMS_URL
+PRIVACY_URL
+BRAND_URL
+WIDGET_BRAND_URL
+```
 </details>
 
 ### Instalações finalizadas ✅

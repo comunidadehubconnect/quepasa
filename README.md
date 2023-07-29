@@ -312,8 +312,6 @@ systemctl daemon-reload && systemctl restart chatwoot.target
 <details>
 <summary>Opcional 3: Configurações no super_admin</summary>
 
-NOMES CHATWOOT TERMOS E POLITICA DE PRIVACIDADE
-
 **Acesse super Admin**
 
 https://seudominio.com.br/super_admin

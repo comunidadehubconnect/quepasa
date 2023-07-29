@@ -359,7 +359,7 @@ systemctl daemon-reload && systemctl restart chatwoot.target
 <details>
 <summary>Opcional 3: Configurações no super_admin</summary>
 
-**Acesse super Admin**
+Acesse super Admin
 
 https://app.seudominio.com.br/super_admin
 

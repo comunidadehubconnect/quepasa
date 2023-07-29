@@ -99,7 +99,7 @@ update installation_configs set locked = false;
 <details>
 <summary>Manual de Instalação N8N</summary>
 
-Para seu Chatwoot funcionar corretamente com API Quepasa, instale a versão abaixo compativél
+#### Para seu Chatwoot funcionar corretamente com API Quepasa, instale a versão abaixo compativél
 
 ```bash
 sudo npm install -g n8n@0.230.3
@@ -209,7 +209,7 @@ N8N_EDITOR_BASE_URL="https://conector.dominio.com.br"
 WEBHOOK_URL="https://conector.dominio.com.br"
 ```
 
-# Cria um link simbólico chamado ".env" que aponta para o arquivo "./.n8n/.env" no sistema de arquivos.
+### Cria um link simbólico chamado ".env" que aponta para o arquivo "./.n8n/.env" no sistema de arquivos.
 
 ```bash
 ln -s ./.n8n/.env .env
@@ -223,7 +223,7 @@ OBS: Não crie sua conta agora, antes de instalar API Quepasa!
 <details>
 <summary>Manual de Instalação API Quepasa</summary>
 
-Instalação da API e importação dos worflows automáticos
+#### Instalação da API e importação dos worflows automáticos
 
 ```
 git clone https://github.com/nocodeleaks/quepasa /opt/quepasa-source
@@ -359,7 +359,7 @@ systemctl daemon-reload && systemctl restart chatwoot.target
 <details>
 <summary>Opcional 3: Configurações no super_admin</summary>
 
-Acesse super Admin
+#### Acesse super Admin
 
 https://app.seudominio.com.br/super_admin
 

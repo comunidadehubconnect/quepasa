@@ -26,18 +26,22 @@
 <details>
 <summary>Manual de Instalação Chatwoot</summary>
 
- ```bash
 # Atualize sua máquina com os últimos pacotes
-sudo apt update && apt upgrade -y
 
-# Baixe o instalador automático do Chatwoot, execute a permisão no arquivo install.sh
-wget https://get.chatwoot.app/linux/install.sh
-chmod +x install.sh
+`sudo apt update && apt upgrade -y`
+
+# Baixe o instalador automático do Chatwoot
+
+`wget https://get.chatwoot.app/linux/install.sh`
+
+# Execute a permisão no arquivo install.sh
+
+`chmod +x install.sh`
 
 # Inicie a instalação, digite "yes" para SSL, em seguida digite seu dominio e prossiga confimando com yes.
 # Esse processo vai levar média ~ 15
+
 ./install.sh --install
-```
 
 Use as opções abaixo
 
@@ -67,11 +71,14 @@ Faça seu cadastro
 
 ```bash
 sudo -i -u postgres psql
-
 \c chatwoot_production
+```
 
+```bash
 update installation_configs set locked = false;
+```
 
+```bash
 \q
 ```
 

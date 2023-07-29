@@ -22,10 +22,10 @@
 	<span>Grupo WhatsaAPP N8N: </span>
 	<a href="https://telinkei.com/gp-n8n-zap" target="_blank">Grupo</a>
 </p>
-
+<hr />
 <details>
 <summary>Manual de Instalação Chatwoot</summary>
-
+<br>
  ```bash
 # Atualize sua máquina com os últimos pacotes
 sudo apt update && apt upgrade -y
@@ -308,7 +308,7 @@ exit
 
 systemctl daemon-reload && systemctl restart chatwoot.target
 
-</detaisl>
+</details>
 
 ### Instalações finalizadas ✅
 

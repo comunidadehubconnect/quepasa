@@ -25,7 +25,7 @@
 <hr />
 <details>
 <summary>Manual de Instalação Chatwoot</summary>
-<br>
+</br>
  ```bash
 # Atualize sua máquina com os últimos pacotes
 sudo apt update && apt upgrade -y

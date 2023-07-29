@@ -24,15 +24,18 @@
 </p>
 
 <details>
-<summary>## Manual de Instalação Chatwoot</summary>
+<summary>Manual de Instalação Chatwoot</summary>
 
-```bash
+ ```bash
+# Atualize sua máquina com os últimos pacotes
 sudo apt update && apt upgrade -y
 
+# Baixe o instalador automático do Chatwoot, execute a permisão no arquivo install.sh
 wget https://get.chatwoot.app/linux/install.sh
-
 chmod +x install.sh
 
+# Inicie a instalação, digite "yes" para SSL, em seguida digite seu dominio e prossiga confimando com yes.
+# Esse processo vai levar média ~ 15
 ./install.sh --install
 ```
 
@@ -100,29 +103,25 @@ WIDGET_BRAND_URL
 
 </details>
 
-**Manual de Instalação N8N**
+<details>
+<summary>Manual de Instalação N8N</summary>
 
-</p>
 cd
-</p>
-</p>
-sudo npm install n8n -g
-</p>
-npm update -g n8n
-</p>
-</p>
-npm install pm2 -g
-</p>
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-</p>
-sudo apt install ./google-chrome-stable_current_amd64.deb
-</p>
-sudo nano /etc/nginx/sites-available/n8n
-</p>
-</p>
-</p>
 
-```
+sudo npm install n8n -g
+
+npm update -g n8n
+
+
+npm install pm2 -g
+
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+sudo apt install ./google-chrome-stable_current_amd64.deb
+
+sudo nano /etc/nginx/sites-available/n8n
+
+```bash
 server {
   server_name n8n.dominio.com;
   
@@ -151,24 +150,19 @@ server {
 } 
   ```
 
-</p>
-</p>
-</p>
 sudo ln -s /etc/nginx/sites-available/n8n /etc/nginx/sites-enabled
-</p>
+
 sudo certbot --nginx
-</p>
+
 sudo service nginx restart
-</p>
-</p>
+
 pm2 start n8n --cron-restart="0 0 * * *" -- start
-</p>
 
-**EXECUTE COMANDO ABAIXO PARA NÃO CAIR QUANDO REINICIAR A VPS**
 
-</p>
+### EXECUTE COMANDO ABAIXO PARA NÃO CAIR QUANDO REINICIAR A VPS
+
 sudo pm2 startup ubuntu -u root && sudo pm2 startup ubuntu -u root --hp /root && sudo pm2 save
-</p>
+
 cd /root/.n8n
 </p>
 </p>
@@ -206,26 +200,17 @@ C8Q_QP_CONTACT="contato@seudominio.com.br"
 N8N_EDITOR_BASE_URL="https://conector.dominio.com.br"
 WEBHOOK_URL="https://conector.dominio.com.br"
 ```
+# Cria um link simbólico chamado ".env" que aponta para o arquivo "./.n8n/.env" no sistema de arquivos.
+ln -s ./.n8n/.env .env
 
-</p>
-cp .env /root
-</p>
-</p>
 pm2 restart all --update-env
-</p>
 
+</details>
 
-<hr />
-<hr />
+<details>
+<summary>Manual de Instalação API Quepasa</summary>
 
-**Manual de Instalação API Quepasa**
-
-</p>
-
-</p>
 cd
-</p>
-</p>
 
 ```
 git clone https://github.com/nocodeleaks/quepasa /opt/quepasa-source
@@ -233,15 +218,9 @@ bash /opt/quepasa-source/helpers/install.sh
 bash /opt/quepasa-source/helpers/update-workflows.sh
 ```
 
-
-</p>
-
-</p>
 sudo nano /etc/nginx/sites-available/quepasa
-</p>
 
-
-```
+```bash
 server {
 
   server_name quepasa.dominio.com.br;
@@ -272,126 +251,74 @@ server {
 ```
 
 sudo ln -s /etc/nginx/sites-available/quepasa /etc/nginx/sites-enabled
-</p>
-</p>
+
 sudo certbot --nginx
-</p>
+
 sudo service nginx restart
-</p>
-</p>
 
-<hr />
-
-**Ativando SSL da API Quepasa**
+### Ativando SSL da API Quepasa
 
 nano /opt/quepasa-source/src/.env
-</p>
-Adicione linha 1
-</p>
-APP_TITLE=Nome da Sua Empresa
-</p>
 
-Alterar linha 2
-</p>
-WEBSOCKETSSL=false
-</p>
-para
-</p>
-WEBSOCKETSSL=true
-</p>
-Alterar linha 8
-</p>
-REMOVEDIGIT9=true
-</p>
+Adicione na linha 1 `APP_TITLE=Nome da Sua Empresa`
+
+Alterar linha 2 de `WEBSOCKETSSL=false` para `WEBSOCKETSSL=true`
+
+Alterar linha 8 para `REMOVEDIGIT9=true`
+
 systemctl restart quepasa
-</p>
+</details>
 
-<hr />
-<hr 
+<details>
+<summary>Opcional instalação do Redis</summary>
 
-**Instalando Redis**
-
-</p>
 sudo add-apt-repository ppa:redislabs/redis
-</p>
+
 sudo apt update
-</p>
+
 sudo apt install redis
-</p>
+
 sudo apt-get install libvips
-</p>
+</details>
 
-<hr />
-</p>
+### Instalações finalizadas ✅
 
-
-***Execute esse processo abaixo parra deixar mais rapida sua API**
-
-nano /etc/hosts
-
-Adicione isso na primeira linha 
-127.0.0.1       localhost app.dominio.com.br conector.dominio.com.br api.dominio.com.br
-
-<hr />
-
-**Instalação Finalizadas**
-
-</p>
 chatwoot.seudominio.com.br
-</p>
-n8n.seudominio.com.br
-</p>
-quepa.dominio.com.br/setup
-</p>
+
+conector.seudominio.com.br
+
+api.dominio.com.br/setup
+
 Faça os cadastros em todos eles
-</p>
 
-</p>
-
-
-<hr />
-<hr 
-
-**Configue os Worflows no N8N**
+### Configue os Worflows no N8N
 
 Adicione nodes ao seu N8N
-</p>
+
 n8n-nodes-chatwoot
-</p>
+
 n8n-nodes-quepasa
-</p>
+
 Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
-</p>
+
 reboot
-</p>
+
 Após colocar credeciais nos Worflows salve todos 
-</p>
 
+### Criando sua Caixa de Entrada**
 
-<hr />
-
-**Criando sua Caixa de Entrada**
-
-</p>
 Envia uma mensagem para Contato Criado
-</p>
+
 Quepasa Control
-</p>
+
 /qrcode
-</p>
+
 Leia QRCODE
-</p>
-<hr />
-<hr />
 
-**Pronto tudo Funcionando**
+**Pronto tudo Funcionando** ✅😎
 
-<hr />
-<hr />
-
-
-**Opcional: Para individualizar conversas entre agentes**
-
+<details>
+<summary>Opcional: Para individualizar conversas entre agentes</summary>
 
 ```bash
 
@@ -399,9 +326,7 @@ mv /home/chatwoot/chatwoot/app/javascript/dashboard/components/ChatList.vue /hom
 
 ```
 
-</p>
 cd /home/chatwoot/chatwoot/app/javascript/dashboard/components
-</p>
 
 ```bash
 
@@ -409,34 +334,15 @@ wget "https://raw.githubusercontent.com/EngajamentoFlow/quepasa/main/ChatList.vu
 
 ```
 
-</p>
 Após alterações acima, rebuildar seu Chatwoot
-</p>
+
 sudo -i -u chatwoot
-</p>
+
 cd chatwoot
-</p>
+
 rake assets:precompile RAILS_ENV=production
-</p>
+
 exit
-</p>
+
 systemctl daemon-reload && systemctl restart chatwoot.target
-</p>
-
-<hr />
-<hr />
-
-**Gostou do Tutorial? Faça sua Contribuição**
-
-<img src="https://github.com/EngajamentoFlow/quepasa/blob/main/Contribui%C3%A7%C3%A3o.png" alt="Quepasa-logo" width="200" />
-</p>
-
-
-**PIX CNPJ**
-
-```
-45959142000119	
-```
-
-<hr />
-<hr />
+</detaisl>

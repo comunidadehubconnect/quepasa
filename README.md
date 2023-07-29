@@ -41,7 +41,9 @@
 ### Inicie a instalação, digite "yes" para SSL, em seguida digite seu dominio e prossiga confimando com yes.
 ### Esse processo vai levar média ~ 15
 
+  ```bash
 ./install.sh --install
+  ```
 
 Use as opções abaixo
 
@@ -110,11 +112,9 @@ pm2 start n8n --cron-restart="0 0 * * *" -- start
 
 ### EXECUTE COMANDO ABAIXO PARA NÃO CAIR QUANDO REINICIAR A VPS
 
-sudo pm2 startup ubuntu -u root && sudo pm2 startup ubuntu -u root --hp /root && sudo pm2 save
+`sudo pm2 startup ubuntu -u root && sudo pm2 startup ubuntu -u root --hp /root && sudo pm2 save`
 
-cd /root/.n8n
-
-nano .env
+`nano /root/.n8n/.env`
 
 Altere as seguintes variaveis baixo no arquivo .env
 
@@ -150,9 +150,10 @@ WEBHOOK_URL="https://conector.dominio.com.br"
 ```
 
 # Cria um link simbólico chamado ".env" que aponta para o arquivo "./.n8n/.env" no sistema de arquivos.
-ln -s ./.n8n/.env .env
 
-pm2 restart all --update-env
+`ln -s ./.n8n/.env .env`
+
+`pm2 restart all --update-env`
 
 </details>
 
@@ -207,7 +208,7 @@ sudo service nginx restart
 
 ### Ativando SSL da API Quepasa
 
-nano /opt/quepasa-source/src/.env
+`nano /opt/quepasa-source/src/.env`
 
 Adicione na linha 1 `APP_TITLE=Nome da Sua Empresa`
 
@@ -215,7 +216,7 @@ Alterar linha 2 de `WEBSOCKETSSL=false` para `WEBSOCKETSSL=true`
 
 Alterar linha 8 para `REMOVEDIGIT9=true`
 
-systemctl restart quepasa
+`systemctl restart quepasa`
 
 </details>
 
@@ -263,7 +264,7 @@ systemctl daemon-reload && systemctl restart chatwoot.target
 </details>
 
 <details>
-</summary>Opcinal 3: Alterando Idioma e ativando sua tela de cadastro</summary>
+<summary>Opcinal 3: Alterando Idioma e ativando sua tela de cadastro</summary>
 
 nano /home/chatwoot/chatwoot/.env
 

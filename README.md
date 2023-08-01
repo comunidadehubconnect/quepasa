@@ -332,7 +332,7 @@ cd /home/chatwoot/chatwoot/app/javascript/dashboard/components
 ```
 
 ```bash
-wget "https://raw.githubusercontent.com/EngajamentoFlow/quepasa/main/ChatList.vue"
+wget "https://raw.githubusercontent.com/cwmkt/quepasa/main/ChatList.vue"
 ```
 
 Após alterações acima, rebuildar seu Chatwoot

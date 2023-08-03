@@ -322,7 +322,7 @@ reboot
 
 
 <details>
-<summary>Opcional 3: Configurações no super_admin</summary>
+<summary>Opcional 2: Configurações no super_admin</summary>
 
 #### Acesse super Admin
 

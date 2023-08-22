@@ -101,8 +101,61 @@ update installation_configs set locked = false;
 
 #### Para seu Chatwoot funcionar corretamente com API Quepasa, instale a versão abaixo compativél
 
+Migração de banco de dados sqlite para Postgres
+
+#Criando Banco de dados Usuario e Senha
+
 ```bash
-sudo npm install -g n8n@0.230.3
+sudo -i -u postgres psql
+```
+
+```bash
+CREATE ROLE n8n_user WITH LOGIN PASSWORD 'SenhaAqui';
+```
+
+```bash
+CREATE DATABASE n8n_db;
+```
+
+```bash
+GRANT ALL PRIVILEGES ON DATABASE n8n_db TO n8n_user;
+```
+
+```bash
+GRANT CONNECT ON DATABASE n8n_db TO n8n_user;
+```
+
+```bash
+\q
+```
+
+Upgrade NodeJS
+
+```bash
+sudo apt-get remove nodejs
+```
+
+```bash
+sudo apt-get purge nodejs
+```
+
+```bash
+sudo apt-get autoremove
+```
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+```
+
+```bash
+sudo apt-get install -y nodejs
+```
+
+# Instalação 
+
+
+```bash
+sudo npm install -g n8n
 ```
 
 ```bash
@@ -178,6 +231,8 @@ nano /root/.n8n/.env
 
 Altere as seguintes variaveis baixo no arquivo `.env`
 
+DB_POSTGRESDB_PASSWORD=SenhaAqui
+
 C8Q_QP_DEFAULT_USER=coloque email do Quepasa
 
 C8Q_QP_BOTTITLE=Nome do seu site
@@ -193,6 +248,12 @@ WEBHOOK_URL=https://conector.dominio.com.br
 N8N_EDITOR_BASE_URL=https://conector.dominio.com.br
 
 ```
+DB_TYPE=postgresdb
+DB_POSTGRESDB_HOST=localhost
+DB_POSTGRESDB_PORT=5432
+DB_POSTGRESDB_USER=n8n_user
+DB_POSTGRESDB_PASSWORD=SenhaAqui
+DB_POSTGRESDB_DATABASE=n8n_db
 C8Q_SINGLETHREAD=false
 C8Q_QUEPASAINBOXCONTROL=1001
 C8Q_GETCHATWOOTCONTACTS=1002

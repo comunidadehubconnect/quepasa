@@ -129,7 +129,7 @@ GRANT CONNECT ON DATABASE n8n_db TO n8n_user;
 \q
 ```
 
-Upgrade NodeJS
+### Upgrade NodeJS
 
 ```bash
 sudo apt-get remove nodejs

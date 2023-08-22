@@ -103,7 +103,7 @@ update installation_configs set locked = false;
 
 Migração de banco de dados sqlite para Postgres
 
-#Criando Banco de dados Usuario e Senha
+### Criando Banco de dados Usuario e Senha
 
 ```bash
 sudo -i -u postgres psql
@@ -151,7 +151,7 @@ curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-# Instalação 
+### Instalação 
 
 
 ```bash

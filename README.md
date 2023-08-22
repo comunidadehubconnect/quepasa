@@ -268,6 +268,9 @@ C8Q_QP_BOTTITLE="Chatwoot"
 C8Q_QP_CONTACT="contato@seudominio.com.br"
 N8N_EDITOR_BASE_URL="https://conector.dominio.com.br"
 WEBHOOK_URL="https://conector.dominio.com.br"
+EXECUTIONS_DATA_PRUNE=true
+EXECUTIONS_DATA_MAX_AGE=168
+EXECUTIONS_DATA_PRUNE_MAX_COUNT=5000
 ```
 
 ### Cria um link simbólico chamado ".env" que aponta para o arquivo "./.n8n/.env" no sistema de arquivos.

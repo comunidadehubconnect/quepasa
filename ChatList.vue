@@ -468,7 +468,6 @@ export default {
       } else {
         conversationList = [...this.chatLists];
       }
-      console.log(conversationList);
       return conversationList;
     },
     activeFolder() {

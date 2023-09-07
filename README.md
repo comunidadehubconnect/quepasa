@@ -302,6 +302,7 @@ WEBHOOK_URL="https://conector.dominio.com.br"
 EXECUTIONS_DATA_PRUNE=true
 EXECUTIONS_DATA_MAX_AGE=168
 EXECUTIONS_DATA_PRUNE_MAX_COUNT=5000
+GENERIC_TIMEZONE="America/Sao_Paulo"
 ```
 
 ### Cria um link simbólico chamado ".env" que aponta para o arquivo "./.n8n/.env" no sistema de arquivos.

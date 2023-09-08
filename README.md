@@ -1,6 +1,6 @@
 <p align="center">
 <img src="https://cwmkt.com.br/wp-content/uploads/2023/08/logo-github-cwmkt.svg" alt="DispZap Whats Marketing" width="240" />
-<p align="center">Seja bem-vindo ao Guia de atualização do n8n, nodejs e quepasa 🚀</p>
+<p align="center">Seja bem-vindo ao Guia de Instalação Chatwoot+N8N+Quepasa 🚀</p>
 </p>
   
 <p align="center">

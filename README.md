@@ -325,33 +325,6 @@ systemctl restart quepasa
 
 Agora sim! Tá liberado para fazer o cadastro no n8n na Quepasa 😎
 
-</details>
-
-<details>
-<summary>Opcional 1: Instalação do Redis</summary>
-
-```bash
-sudo add-apt-repository ppa:redislabs/redis
-```
-
-```bash
-sudo apt update
-```
-
-```bash
-sudo apt install redis
-```
-
-```bash
-sudo apt-get install libvips
-```
-
-```bash
-reboot
-```
-
-</details>
-
 
 <details>
 <summary>Opcional 2: Configurações no super_admin</summary>

@@ -328,7 +328,7 @@ Agora sim! Tá liberado para fazer o cadastro no n8n na Quepasa 😎
 </details>
 
 <details>
-<summary>Opcional 2: Configurações no super_admin</summary>
+<summary>Configurações no super_admin</summary>
 
 #### Acesse super Admin
 

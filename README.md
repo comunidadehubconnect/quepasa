@@ -6,7 +6,7 @@
 <p align="center">
 <img src="https://whatsapp.com/favicon.ico" alt="WhatsAPP-logo" width="32" />
 <span>Grupo WhatsaAPP: </span>
-<a href="https://link.cwmkt.com.br/grupo-whats" target="_blank">Grupo</a>
+<a href="https://chat.whatsapp.com/Cv5WfmujRzE09yQ6hagYim" target="_blank">Grupo</a>
 </p>
 
 <hr />

@@ -371,6 +371,10 @@ n8n-nodes-quepasa
 
 Acesse opção Credenciais, adicione suas credenciais Postgres, salve.
 
+```bash
+ nano /opt/chatwoot/config/.pg_pass
+```
+
 ### Criando sua Caixa de Entrada
 
 Envia uma mensagem para Contato Criado

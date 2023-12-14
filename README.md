@@ -99,6 +99,8 @@ Migração de banco de dados sqlite para Postgres
 sudo -i -u postgres psql
 ```
 
+Defina uma senha segura para acesso ao banco de dados
+
 ```bash
 CREATE ROLE n8n_user WITH LOGIN PASSWORD 'SenhaAqui';
 ```

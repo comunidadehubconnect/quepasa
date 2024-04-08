@@ -124,7 +124,7 @@ GRANT CONNECT ON DATABASE n8n_db TO n8n_user;
 ### Instale a última versão do n8n
 
 ```bash
-npm install -g n8n@1.17.1
+npm install -g n8n
 ```
 
 ```bash

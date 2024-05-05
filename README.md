@@ -1,17 +1,16 @@
 <p align="center">
-<img src="https://cwmkt.com.br/wp-content/uploads/2023/08/logo-github-cwmkt.svg" alt="DispZap Whats Marketing" width="240" />
+<img src="https://cwmkt.com.br/wp-content/uploads/2024/04/logo_github.png" width="240" />
 <p align="center">Seja bem-vindo ao Guia de Instalação Chatwoot+N8N+Quepasa 🚀</p>
 </p>
   
 <p align="center">
 <img src="https://whatsapp.com/favicon.ico" alt="WhatsAPP-logo" width="32" />
 <span>Grupo WhatsaAPP: </span>
-<a href="https://link.cwmkt.com.br/quepasa" target="_blank">Grupo</a>
+<a href="https://chat.whatsapp.com/K0HnkUZ41CYL8txpPWx2hO" target="_blank">Grupo</a>
 </p>
 
 <hr />
 <hr />
-
 
 <details>
 <summary>Manual de Instalação Chatwoot</summary>

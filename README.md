@@ -4,10 +4,14 @@
 </p>
   
 <p align="center">
-<img src="https://whatsapp.com/favicon.ico" alt="WhatsAPP-logo" width="32" />
+<img src="![WhatsApp Image 2024-05-13 at 10 28 42](https://github.com/cwmkt/quepasa/assets/91642837/27582692-2e38-43d5-9c4f-e92c23e9469c)" alt="WhatsAPP-logo" width="32" />
 <span>Grupo WhatsaAPP: </span>
 <a href="https://chat.whatsapp.com/K0HnkUZ41CYL8txpPWx2hO" target="_blank">Grupo</a>
 </p>
+
+
+
+
 
 <hr />
 <hr />
